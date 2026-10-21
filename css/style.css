@@ -22,150 +22,222 @@
 }
 
  
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+        /* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-        body {
-            background-color: #061412;
-            color: #e2e8f0;
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
-            position: relative;
-        }
+body {
+  background-color: #061412;
+  color: #e2e8f0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
 
-        /* Interactive Particle Canvas */
-        #particleCanvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
+/* Canvas Particle Background */
+#particleCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
 
-        /* Ambient Glowing Background Elements (Aurora Glow) */
-        .ambient-glow-1 {
-            position: absolute;
-            top: -10%;
-            left: -10%;
-            width: 50vw;
-            height: 50vw;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, rgba(6, 20, 18, 0) 70%);
-            border-radius: 50%;
-            filter: blur(60px);
-            z-index: 2;
-            pointer-events: none;
-            animation: pulseGlow 8s infinite alternate ease-in-out;
-        }
+/* Glowing Ambient Background Circles */
+.glow-circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: 2;
+  pointer-events: none;
+}
 
-        .ambient-glow-2 {
-            position: absolute;
-            bottom: -15%;
-            right: -10%;
-            width: 55vw;
-            height: 55vw;
-            background: radial-gradient(circle, rgba(5, 150, 105, 0.22) 0%, rgba(6, 20, 18, 0) 70%);
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: 2;
-            pointer-events: none;
-            animation: pulseGlow 10s infinite alternate-reverse ease-in-out;
-        }
+.glow-1 {
+  width: 350px;
+  height: 350px;
+  background: rgba(16, 185, 129, 0.25);
+  top: -100px;
+  left: -100px;
+}
 
-        @keyframes pulseGlow {
-            0% { transform: scale(0.9) translate(0, 0); opacity: 0.7; }
-            100% { transform: scale(1.15) translate(20px, -20px); opacity: 1; }
-        }
+.glow-2 {
+  width: 400px;
+  height: 400px;
+  background: rgba(5, 150, 105, 0.2);
+  bottom: -150px;
+  right: -150px;
+}
 
-        /* Sleek Glassmorphism Card Surface */
-        .glass-card {
-            background: rgba(13, 40, 35, 0.65);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(52, 211, 153, 0.2);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5),
-                        0 0 25px rgba(16, 185, 129, 0.15),
-                        inset 0 1px 1px rgba(255, 255, 255, 0.1);
-            position: relative;
-            z-index: 10;
-            transition: border-color 0.4s ease, box-shadow 0.4s ease;
-        }
+/* Card Container */
+.login-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
+}
 
-        .glass-card:hover {
-            border-color: rgba(52, 211, 153, 0.4);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6),
-                        0 0 35px rgba(16, 185, 129, 0.25);
-        }
+.login-card {
+  background: rgba(13, 40, 35, 0.85);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 20px;
+  padding: 40px 32px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6),
+              0 0 20px rgba(16, 185, 129, 0.15);
+  text-align: center;
+}
 
-        /* Custom Input Glow & Styling */
-        .input-group-focus:focus-within {
-            border-color: #34d399 !important;
-            box-shadow: 0 0 18px rgba(52, 211, 153, 0.35) !important;
-            background-color: rgba(16, 45, 40, 0.85) !important;
-        }
+/* Header & Icon */
+.brand-icon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #10b981, #047857);
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+  color: #ffffff;
+}
 
-        .custom-input {
-            background-color: rgba(9, 28, 24, 0.75);
-            border: 1px solid rgba(52, 211, 153, 0.25);
-            color: #ecfdf5;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+.brand-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
 
-        .custom-input::placeholder {
-            color: #4ade80;
-            opacity: 0.4;
-        }
+.brand-subtitle {
+  font-size: 0.875rem;
+  color: #6ee7b7;
+  margin-bottom: 28px;
+}
 
-        /* Glowing Emerald Gradient Button */
-        .btn-emerald {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            border: 1px solid rgba(52, 211, 153, 0.5);
-            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.35);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
+/* Form & Inputs */
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
 
-        .btn-emerald:hover {
-            background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
-            box-shadow: 0 6px 28px rgba(52, 211, 153, 0.55);
-            transform: translateY(-2px);
-        }
+.form-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #34d399;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
 
-        .btn-emerald:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
-        }
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 
-        /* Ripple Effect on Button */
-        .ripple {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.35);
-            border-radius: 50%;
-            transform: scale(0);
-            animation: ripple-anim 0.6s linear;
-            pointer-events: none;
-        }
+.input-icon {
+  position: absolute;
+  left: 14px;
+  color: #10b981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
 
-        @keyframes ripple-anim {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
-        }
+.form-input {
+  width: 100%;
+  padding: 13px 40px 13px 44px;
+  background: rgba(6, 20, 18, 0.7);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
 
-        /* Alert Animation */
-        .alert-pop {
-            animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
+.form-input::placeholder {
+  color: #4b5563;
+}
 
-        @keyframes popIn {
-            0% { opacity: 0; transform: translateY(-10px) scale(0.95); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-    
+.form-input:focus {
+  border-color: #10b981;
+  background: rgba(6, 20, 18, 0.9);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
+.toggle-password {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #34d399;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.toggle-password:hover {
+  color: #6ee7b7;
+}
+
+/* Error Message */
+.error-alert {
+  display: none;
+  background: rgba(220, 38, 38, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Submit Button */
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);
+  transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+  background: linear-gradient(135deg, #34d399, #10b981);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-submit:active {
+  transform: translateY(0);
+}
+
+/* Footer Info */
+.login-footer {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(16, 185, 129, 0.15);
+  font-size: 0.8rem;
+  color: #6ee7b7;
+}
