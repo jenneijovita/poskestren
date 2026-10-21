@@ -21,124 +21,117 @@
     background: #04150E;
 }
 
-/* Styling Tampilan Halaman Login */
-body {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #0a0f1d;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: system-ui, -apple-system, sans-serif;
-}
+<style>
+    /* Styling Tampilan Halaman Login */
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #0a0f1d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
 
-.login-card {
-  background-color: #111827;
-  border: 1px solid #1f2937;
-  border-radius: 16px;
-  padding: 32px;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-  color: #f9fafb;
-  box-sizing: border-box;
-}
+    .login-card {
+      background-color: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 16px;
+      padding: 32px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+      color: #f9fafb;
+      box-sizing: border-box;
+    }
 
-.login-header {
-  text-align: center;
-  margin-bottom: 24px;
-}
+    .login-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
 
-.login-icon {
-  width: 48px;
-  height: 48px;
-  background-color: #10b981;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 12px auto;
-  color: white;
-}
+    .login-icon {
+      width: 48px;
+      height: 48px;
+      background-color: #10b981;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px auto;
+      color: white;
+    }
 
-.login-header h2 {
-  margin: 0 0 6px 0;
-  font-size: 1.5rem;
-  font-weight: 700;
-}
+    .login-header h2 {
+      margin: 0 0 6px 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
 
-.login-header p {
-  margin: 0;
-  font-size: 0.875rem;
-  color: #9ca3af;
-}
+    .login-header p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: #9ca3af;
+    }
 
-.input-group {
-  margin-bottom: 18px;
-  text-align: left;
-}
+    .input-group {
+      margin-bottom: 18px;
+      text-align: left;
+    }
 
-.input-group label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #d1d5db;
-}
+    .input-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #d1d5db;
+    }
 
-.input-group input {
-  width: 100%;
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: 1px solid #374151;
-  background-color: #1f2937;
-  color: #ffffff;
-  font-size: 0.95rem;
-  box-sizing: border-box;
-  outline: none;
-  transition: border-color 0.2s;
-}
+    .input-group input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #374151;
+      background-color: #1f2937;
+      color: #ffffff;
+      font-size: 0.95rem;
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.2s;
+    }
 
-.input-group input:focus {
-  border-color: #10b981;
-}
+    .input-group input:focus {
+      border-color: #10b981;
+    }
 
-.error-message {
-  display: none;
-  color: #ef4444;
-  background-color: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  margin-bottom: 16px;
-  text-align: center;
-}
+    .error-message {
+      display: none;
+      color: #ef4444;
+      background-color: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+      text-align: center;
+    }
 
-.btn-login {
-  width: 100%;
-  padding: 12px;
-  background-color: #10b981;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
+    .btn-login {
+      width: 100%;
+      padding: 12px;
+      background-color: #10b981;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
 
-.btn-login:hover {
-  background-color: #059669;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #059669;
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #0D9488;
-}
+    .btn-login:hover {
+      background-color: #059669;
+    }
+  </style>
