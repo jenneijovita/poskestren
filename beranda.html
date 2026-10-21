@@ -12,6 +12,9 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     
+    <!-- External CSS File -->
+    <link rel="stylesheet" href="style.css">
+
     <script>
         tailwind.config = {
             theme: {
@@ -43,41 +46,6 @@
             }
         }
     </script>
-    <style>
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #04150E;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #115E59;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #0D9488;
-        }
-        .glass-card {
-            background: rgba(8, 34, 24, 0.75);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .glass-nav {
-            background: rgba(4, 21, 14, 0.85);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .text-gold-gradient {
-            background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #D97706 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .text-emerald-gradient {
-            background: linear-gradient(135deg, #34D399 0%, #059669 50%, #0D9488 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-    </style>
 </head>
 <body class="bg-santri-dark text-slate-200 font-sans antialiased relative overflow-x-hidden selection:bg-emerald-500 selection:text-white">
 
@@ -92,7 +60,6 @@
     <header class="fixed top-0 left-0 w-full z-40 glass-nav transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <a href="#" class="flex items-center gap-3 group">
-                <!-- LOGO POSKESTREN: RUMAH + SIMBOL MEDIS -->
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-amber-500 flex items-center justify-center text-white text-xl font-extrabold shadow-lg shadow-emerald-900/40 group-hover:scale-105 transition-transform">
                     <i class="fa-solid fa-house-medical"></i>
                 </div>
@@ -104,10 +71,10 @@
 
             <!-- Desktop Nav -->
             <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium">
-                <a href="Profil.html" class="text-slate-300 hover:text-emerald-400 transition-colors">Profil</a>
+                <a href="profil.html" class="text-slate-300 hover:text-emerald-400 transition-colors">Profil</a>
                 <a href="#services" class="text-slate-300 hover:text-emerald-400 transition-colors">Layanan</a>
                 <a href="#schedule" class="text-slate-300 hover:text-emerald-400 transition-colors">Jadwal Piket</a>
-                <a href="#edukasi santri" class="text-slate-300 hover:text-emerald-400 transition-colors">Edukasi Santri</a>
+                <a href="#articles" class="text-slate-300 hover:text-emerald-400 transition-colors">Edukasi Santri</a>
                 <a href="#consultation" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-semibold shadow-lg shadow-emerald-900/50 hover:scale-105 transition-all flex items-center gap-2">
                     <i class="fa-solid fa-notes-medical"></i> Daftar Berobat
                 </a>
@@ -121,7 +88,7 @@
 
         <!-- Mobile Navigation Menu -->
         <div id="mobile-menu" class="hidden lg:hidden glass-card border-t border-white/10 px-6 py-6 space-y-4 transition-all">
-            <a href="#about" class="block text-slate-300 hover:text-emerald-400 font-medium py-1 mobile-link">Profil</a>
+            <a href="profil.html" class="block text-slate-300 hover:text-emerald-400 font-medium py-1 mobile-link">Profil</a>
             <a href="#services" class="block text-slate-300 hover:text-emerald-400 font-medium py-1 mobile-link">Layanan Kesehatan</a>
             <a href="#schedule" class="block text-slate-300 hover:text-emerald-400 font-medium py-1 mobile-link">Jadwal Dokter & Piket</a>
             <a href="#articles" class="block text-slate-300 hover:text-emerald-400 font-medium py-1 mobile-link">Edukasi & PHBS</a>
@@ -185,7 +152,6 @@
                         <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80" alt="Santri Memeriksakan Diri di Poskestren" class="w-full h-full object-cover rounded-2xl filter brightness-90 hover:scale-105 transition-all duration-500">
                     </div>
                     
-                    <!-- Floating Card Badge -->
                     <div class="absolute -bottom-6 -left-6 glass-card p-4 rounded-2xl border border-emerald-500/40 flex items-center gap-3 shadow-2xl">
                         <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl">
                             <i class="fa-solid fa-user-nurse"></i>
@@ -200,6 +166,7 @@
 
         </div>
     </section>
+
     <!-- Services Section -->
     <section id="services" class="py-24 px-6 relative">
         <div class="max-w-7xl mx-auto">
@@ -209,7 +176,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Service 1 -->
                 <div class="glass-card p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 border border-white/5 hover:border-emerald-500/50 group cursor-pointer">
                     <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 group-hover:bg-emerald-500 group-hover:text-white flex items-center justify-center text-2xl transition-all mb-6 shadow-md">
                         <i class="fa-solid fa-stethoscope"></i>
@@ -218,7 +184,6 @@
                     <p class="text-slate-400 text-sm leading-relaxed">Pemeriksaan fisik harian, tensi darah, obat gratis, dan perawatan luka ringan bagi santri yang kurang sehat.</p>
                 </div>
 
-                <!-- Service 2 -->
                 <div class="glass-card p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 border border-white/5 hover:border-emerald-500/50 group cursor-pointer">
                     <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 group-hover:bg-emerald-500 group-hover:text-white flex items-center justify-center text-2xl transition-all mb-6 shadow-md">
                         <i class="fa-solid fa-bed-pulse"></i>
@@ -227,7 +192,6 @@
                     <p class="text-slate-400 text-sm leading-relaxed">Fasilitas kamar rawat sementara yang bersih dan terpisah untuk santri yang membutuhkan istirahat total / pemulihan.</p>
                 </div>
 
-                <!-- Service 3 -->
                 <div class="glass-card p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 border border-white/5 hover:border-emerald-500/50 group cursor-pointer">
                     <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 group-hover:bg-emerald-500 group-hover:text-white flex items-center justify-center text-2xl transition-all mb-6 shadow-md">
                         <i class="fa-solid fa-soap"></i>
@@ -236,7 +200,6 @@
                     <p class="text-slate-400 text-sm leading-relaxed">Penyuluhan kebersihan lingkungan asrama, pencegahan penyakit kulit (scabies), dan kebersihan sanitasi pondok.</p>
                 </div>
 
-                <!-- Service 4 -->
                 <div class="glass-card p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 border border-white/5 hover:border-emerald-500/50 group cursor-pointer">
                     <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 group-hover:bg-emerald-500 group-hover:text-white flex items-center justify-center text-2xl transition-all mb-6 shadow-md">
                         <i class="fa-solid fa-truck-medical"></i>
@@ -247,6 +210,7 @@
             </div>
         </div>
     </section>
+
     <!-- Articles / Health Tips Section -->
     <section id="articles" class="py-24 px-6 relative">
         <div class="max-w-7xl mx-auto">
@@ -259,575 +223,199 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- KARTU 1: SCABIES -->
-            <div class="bg-santri-card border border-santri-accent/30 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl hover:border-santri-light/50 transition-all duration-300 flex flex-col group">
-                <div class="relative h-48 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80" 
-                         alt="Cegah Scabies" 
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 brightness-90">
-                    <span class="absolute top-4 left-4 bg-emerald-600/90 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md">
-                        Pencegahan
-                    </span>
-                </div>
-                <div class="p-6 flex flex-col flex-grow justify-between">
+                <div class="glass-card rounded-3xl overflow-hidden border border-white/5 hover:border-emerald-500/40 transition-all duration-300 flex flex-col justify-between group">
                     <div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-santri-bright transition-colors">
-                            Cegah Scabies (Gudik) di Asrama Santri
-                        </h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                            Langkah-langkah menjaga kebersihan kasur, rutin menjemur pakaian, dan tidak saling pinjam pakaian antarsantri.
-                        </p>
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80" alt="Cegah Scabies" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-4 left-4 bg-emerald-600/90 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md">
+                                Pencegahan
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors">
+                                Cegah Scabies (Gudik) di Asrama Santri
+                            </h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                                Langkah-langkah menjaga kebersihan kasur, rutin menjemur pakaian, dan tidak saling pinjam pakaian antarsantri.
+                            </p>
+                        </div>
                     </div>
-                    <button onclick="openModal('modal-scabies')" class="inline-flex items-center text-santri-light hover:text-santri-bright font-semibold text-sm tracking-wide transition-colors group/btn">
-                        <span>BACA SELENGKAPNYA</span>
-                        <svg class="w-4 h-4 ml-2 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                        </svg>
-                    </button>
+                    <div class="px-6 pb-6">
+                        <button onclick="openModal('modal-scabies')" class="inline-flex items-center text-emerald-400 hover:text-emerald-300 font-semibold text-sm tracking-wide transition-colors">
+                            <span>BACA SELENGKAPNYA</span>
+                            <i class="fa-solid fa-arrow-right text-xs ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KARTU 2: HAFALAN & DAYA TAHAN TUBUH -->
+                <div class="glass-card rounded-3xl overflow-hidden border border-white/5 hover:border-emerald-500/40 transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80" alt="Menjaga Daya Tahan Tubuh" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-4 left-4 bg-amber-600/90 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md">
+                                Pola Hidup
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors">
+                                Menjaga Daya Tahan Tubuh Saat Setoran Hafalan
+                            </h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                                Tips mengelola waktu tidur, asupan air minum cukup, dan nutrisi agar konsentrasi hafalan tetap optimal.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <button onclick="openModal('modal-hafalan')" class="inline-flex items-center text-emerald-400 hover:text-emerald-300 font-semibold text-sm tracking-wide transition-colors">
+                            <span>BACA SELENGKAPNYA</span>
+                            <i class="fa-solid fa-arrow-right text-xs ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- KARTU 3: DEMAM & FLU -->
+                <div class="glass-card rounded-3xl overflow-hidden border border-white/5 hover:border-emerald-500/40 transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="relative h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80" alt="Pertolongan Pertama Demam" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-4 left-4 bg-teal-600/90 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md">
+                                Pertolongan Pertama
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors">
+                                Penanganan Dini Demam dan Flu pada Santri
+                            </h3>
+                            <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                                Apa yang harus dilakukan teman asrama saat ada santri yang menggigil atau demam tinggi di malam hari.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="px-6 pb-6">
+                        <button onclick="openModal('modal-flu')" class="inline-flex items-center text-emerald-400 hover:text-emerald-300 font-semibold text-sm tracking-wide transition-colors">
+                            <span>BACA SELENGKAPNYA</span>
+                            <i class="fa-solid fa-arrow-right text-xs ml-2"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-
-            <!-- KARTU 2: HAFALAN & DAYA TAHAN TUBUH -->
-            <div class="bg-santri-card border border-santri-accent/30 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl hover:border-santri-light/50 transition-all duration-300 flex flex-col group">
-                <div class="relative h-48 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80" 
-                         alt="Menjaga Daya Tahan Tubuh" 
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 brightness-90">
-                    <span class="absolute top-4 left-4 bg-amber-600/90 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md">
-                        Pola Hidup
-                    </span>
-                </div>
-                <div class="p-6 flex flex-col flex-grow justify-between">
-                    <div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-santri-bright transition-colors">
-                            Menjaga Daya Tahan Tubuh Saat Setoran Hafalan
-                        </h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                            Tips mengelola waktu tidur, asupan air minum cukup, dan nutrisi agar konsentrasi hafalan tetap optimal.
-                        </p>
-                    </div>
-                    <button onclick="openModal('modal-hafalan')" class="inline-flex items-center text-santri-light hover:text-santri-bright font-semibold text-sm tracking-wide transition-colors group/btn">
-                        <span>BACA SELENGKAPNYA</span>
-                        <svg class="w-4 h-4 ml-2 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- KARTU 3: DEMAM & FLU -->
-            <div class="bg-santri-card border border-santri-accent/30 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl hover:border-santri-light/50 transition-all duration-300 flex flex-col group">
-                <div class="relative h-48 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80" 
-                         alt="Pertolongan Pertama Demam" 
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 brightness-90">
-                    <span class="absolute top-4 left-4 bg-teal-600/90 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md">
-                        Pertolongan Pertama
-                    </span>
-                </div>
-                <div class="p-6 flex flex-col flex-grow justify-between">
-                    <div>
-                        <h3 class="text-xl font-bold text-white mb-3 group-hover:text-santri-bright transition-colors">
-                            Penanganan Dini Demam dan Flu pada Santri
-                        </h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                            Apa yang harus dilakukan teman asrama saat ada santri yang menggigil atau demam tinggi di malam hari.
-                        </p>
-                    </div>
-                    <button onclick="openModal('modal-flu')" class="inline-flex items-center text-santri-light hover:text-santri-bright font-semibold text-sm tracking-wide transition-colors group/btn">
-                        <span>BACA SELENGKAPNYA</span>
-                        <svg class="w-4 h-4 ml-2 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
         </div>
-    </div>
+    </section>
 
-
-    <!-- ========================================== -->
-    <!-- MODAL POPUP 1: CEGAH SCABIES (GUDIK)      -->
-    <!-- ========================================== -->
-    <div id="modal-scabies" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-        <!-- Backdrop Backdrop Overlay -->
-        <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal('modal-scabies')"></div>
-
-        <!-- Modal Box Container -->
-        <div class="relative bg-santri-card border border-santri-accent/50 rounded-2xl max-w-2xl w-full mx-auto shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col">
-            <!-- Header Modal + Gambar -->
-            <div class="relative h-56 sm:h-64 flex-shrink-0">
-                <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1000&q=80" 
-                     class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-santri-card via-santri-card/40 to-transparent"></div>
-                
-                <!-- Tombol Close (X) -->
-                <button onclick="closeModal('modal-scabies')" class="absolute top-4 right-4 bg-black/60 hover:bg-black/90 text-white rounded-full p-2 backdrop-blur-md transition-colors focus:outline-none">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-
-                <div class="absolute bottom-4 left-6 right-6">
-                    <span class="inline-block bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full mb-2">Pencegahan</span>
-                    <h2 class="text-2xl sm:text-3xl font-bold text-white">Cegah Scabies (Gudik) di Asrama Santri</h2>
+    <!-- MODAL POPUP DIALOGS -->
+    <!-- Modal 1: Scabies -->
+    <div id="modal-scabies" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-card max-w-2xl w-full max-h-[85vh] rounded-3xl border border-emerald-500/30 overflow-hidden flex flex-col shadow-2xl">
+            <div class="p-6 border-b border-white/10 flex items-center justify-between bg-santri-card">
+                <div class="flex items-center gap-3">
+                    <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-600 text-white">Pencegahan</span>
+                    <h3 class="text-lg font-bold text-white">Cegah Scabies (Gudik) di Asrama Santri</h3>
                 </div>
+                <button onclick="closeModal('modal-scabies')" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
-
-            <!-- Content Scrollable -->
-            <div class="p-6 overflow-y-auto space-y-4 text-gray-300 text-sm sm:text-base leading-relaxed">
-                <p>
-                    Scabies atau yang sering dikenal santri sebagai <strong class="text-santri-mint">Gudik</strong> adalah penyakit kulit menular yang disebabkan oleh tungau mikroskopis <em>Sarcoptes scabiei</em>. Penyakit ini sangat mudah menyebar di lingkungan padat seperti asrama atau kobong pesantren.
-                </p>
-
-                <h4 class="text-lg font-semibold text-santri-bright mt-4 mb-2">Penyebab Utama di Asrama:</h4>
-                <ul class="list-disc pl-5 space-y-1 text-gray-300">
-                    <li>Kebiasaan saling meminjam pakaian, sarung, atau handuk.</li>
-                    <li>Kasur dan bantal yang jarang dijemur di bawah sinar matahari.</li>
-                    <li>Sirkulasi udara dan pencahayaan kamar kobong yang kurang memadai.</li>
-                    <li>Pakaian basah/lembap yang ditumpuk terlalu lama.</li>
+            <div class="p-6 overflow-y-auto space-y-4 text-slate-300 text-sm leading-relaxed">
+                <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80" alt="Scabies" class="w-full h-48 object-cover rounded-2xl mb-4">
+                <p>Scabies atau yang sering dikenal santri sebagai <b>Gudik</b> adalah penyakit kulit menular yang disebabkan oleh tungau mikroskopis <i>Sarcoptes scabiei</i>.</p>
+                <h4 class="text-base font-bold text-emerald-400">Penyebab Utama:</h4>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>Saling meminjam pakaian, sarung, atau handuk.</li>
+                    <li>Kasur dan bantal jarang dijemur.</li>
                 </ul>
-
-                <h4 class="text-lg font-semibold text-santri-bright mt-4 mb-2">Langkah Pencegahan Efektif:</h4>
-                <ol class="list-decimal pl-5 space-y-2 text-gray-300">
-                    <li><strong class="text-white">Jangan Saling Pinjam Pakaian:</strong> Gunakan peralatan mandi, handuk, sarung, dan baju milik sendiri.</li>
-                    <li><strong class="text-white">Rutin Jemur Kasur:</strong> Jemur kasur busa/kapuk dan bantal minimal 1 kali seminggu di bawah terik matahari langsung.</li>
-                    <li><strong class="text-white">Cuci Seprai dengan Air Panas:</strong> Jika memungkinkan, rendam seprai dan selimut dengan air panas berkala untuk membunuh tungau.</li>
-                    <li><strong class="text-white">Jaga Kebersihan Kamar:</strong> Buka jendela dan pintu kamar setiap pagi agar udara segar dan sinar matahari masuk.</li>
+                <h4 class="text-base font-bold text-emerald-400">Pencegahan:</h4>
+                <ol class="list-decimal pl-5 space-y-1">
+                    <li>Gunakan peralatan pribadi (jangan pinjam-meminjam).</li>
+                    <li>Rutin jemur kasur minimal seminggu sekali.</li>
                 </ol>
-
-                <div class="bg-santri-hover border-l-4 border-santri-light p-4 rounded-r-lg mt-6">
-                    <p class="text-xs sm:text-sm text-santri-mint font-medium">
-                        💡 <strong>Saran Pengobatan:</strong> Jika sudah timbul rasa gatal hebat terutama pada malam hari di sela-sela jari atau pergelangan tangan, segera periksakan ke Poskestren (Pos Kesehatan Pesantren) atau puskesmas terdekat untuk mendapatkan salep antiskabies.
-                    </p>
-                </div>
             </div>
-
-            <!-- Footer Modal -->
-            <div class="p-4 bg-santri-bg border-t border-santri-accent/30 flex justify-end">
-                <button onclick="closeModal('modal-scabies')" class="px-5 py-2 bg-santri-accent hover:bg-santri-light text-white font-medium rounded-xl text-sm transition-colors">
-                    Tutup Artikel
-                </button>
+            <div class="p-4 border-t border-white/10 bg-santri-card/50 flex justify-end">
+                <button onclick="closeModal('modal-scabies')" class="px-5 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-medium text-xs">Tutup Artikel</button>
             </div>
         </div>
     </div>
 
-
-    <!-- ========================================== -->
-    <!-- MODAL POPUP 2: DAYA TAHAN TUBUH & HAFALAN  -->
-    <!-- ========================================== -->
-    <div id="modal-hafalan" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-        <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal('modal-hafalan')"></div>
-
-        <div class="relative bg-santri-card border border-santri-accent/50 rounded-2xl max-w-2xl w-full mx-auto shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col">
-            <div class="relative h-56 sm:h-64 flex-shrink-0">
-                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1000&q=80" 
-                     class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-santri-card via-santri-card/40 to-transparent"></div>
-                
-                <button onclick="closeModal('modal-hafalan')" class="absolute top-4 right-4 bg-black/60 hover:bg-black/90 text-white rounded-full p-2 backdrop-blur-md transition-colors focus:outline-none">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-
-                <div class="absolute bottom-4 left-6 right-6">
-                    <span class="inline-block bg-amber-600 text-white text-xs font-semibold px-3 py-1 rounded-full mb-2">Pola Hidup</span>
-                    <h2 class="text-2xl sm:text-3xl font-bold text-white">Menjaga Daya Tahan Tubuh Saat Setoran Hafalan</h2>
+    <!-- Modal 2: Hafalan -->
+    <div id="modal-hafalan" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-card max-w-2xl w-full max-h-[85vh] rounded-3xl border border-emerald-500/30 overflow-hidden flex flex-col shadow-2xl">
+            <div class="p-6 border-b border-white/10 flex items-center justify-between bg-santri-card">
+                <div class="flex items-center gap-3">
+                    <span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-600 text-white">Pola Hidup</span>
+                    <h3 class="text-lg font-bold text-white">Menjaga Daya Tahan Tubuh Saat Setoran Hafalan</h3>
                 </div>
+                <button onclick="closeModal('modal-hafalan')" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
             </div>
-
-            <div class="p-6 overflow-y-auto space-y-4 text-gray-300 text-sm sm:text-base leading-relaxed">
-                <p>
-                    Aktivitas menghafal Al-Qur'an maupun kitab membutuhkan fokus tinggi dan stamina mental yang prima. Kurang tidur dan nutrisi yang buruk dapat menurunkan daya ingat serta daya tahan tubuh santri.
-                </p>
-
-                <h4 class="text-lg font-semibold text-santri-bright mt-4 mb-2">Tips Stamina & Daya Ingat Optimal:</h4>
-                <ul class="list-disc pl-5 space-y-2 text-gray-300">
-                    <li><strong class="text-white">Manfaatkan Qailulah (Tidur Siang Sejenak):</strong> Tidur singkat selama 15–30 menit sebelum atau sesudah dzuhur sangat ampuh menyegarkan kembali otak yang lelah.</li>
-                    <li><strong class="text-white">Cukupi Kebutuhan Air Putih:</strong> Dehidrasi ringan bisa menyebabkan pusing dan konsentrasi menurun. Minum minimal 8 gelas air sehari.</li>
-                    <li><strong class="text-white">Konsumsi Makanan Penguat Daya Ingat:</strong> Perbanyak konsumsi kurma, madu, kismis, dan buah-buahan yang kaya antioksidan.</li>
-                    <li><strong class="text-white">Atur Waktu Muroja'ah:</strong> Hindari begadang berlebihan hingga larut malam. Tidur yang cukup setelah Isya jauh lebih efektif untuk mengendapkan hafalan.</li>
+            <div class="p-6 overflow-y-auto space-y-4 text-slate-300 text-sm leading-relaxed">
+                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80" alt="Hafalan" class="w-full h-48 object-cover rounded-2xl mb-4">
+                <p>Aktivitas menghafal Al-Qur'an membutuhkan fokus tinggi dan stamina mental yang prima.</p>
+                <h4 class="text-base font-bold text-amber-400">Tips Penting:</h4>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>Manfaatkan Qailulah (tidur siang sejenak 15-30 menit).</li>
+                    <li>Cukupi kebutuhan air putih minimal 8 gelas sehari.</li>
                 </ul>
-
-                <div class="bg-santri-hover border-l-4 border-amber-500 p-4 rounded-r-lg mt-6">
-                    <p class="text-xs sm:text-sm text-amber-200 font-medium">
-                        📌 <strong>Catatan Santri:</strong> Otak yang lelah tidak akan maksimal menyerap hafalan baru. Kombinasikan ikhtiar fisik dengan pola istirahat yang seimbang.
-                    </p>
-                </div>
             </div>
-
-            <div class="p-4 bg-santri-bg border-t border-santri-accent/30 flex justify-end">
-                <button onclick="closeModal('modal-hafalan')" class="px-5 py-2 bg-santri-accent hover:bg-santri-light text-white font-medium rounded-xl text-sm transition-colors">
-                    Tutup Artikel
-                </button>
+            <div class="p-4 border-t border-white/10 bg-santri-card/50 flex justify-end">
+                <button onclick="closeModal('modal-hafalan')" class="px-5 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-medium text-xs">Tutup Artikel</button>
             </div>
         </div>
     </div>
 
-
-    <!-- ========================================== -->
-    <!-- MODAL POPUP 3: PENANGANAN DEMAM & FLU      -->
-    <!-- ========================================== -->
-    <div id="modal-flu" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-        <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal('modal-flu')"></div>
-
-        <div class="relative bg-santri-card border border-santri-accent/50 rounded-2xl max-w-2xl w-full mx-auto shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col">
-            <div class="relative h-56 sm:h-64 flex-shrink-0">
-                <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1000&q=80" 
-                     class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-santri-card via-santri-card/40 to-transparent"></div>
-                
-                <button onclick="closeModal('modal-flu')" class="absolute top-4 right-4 bg-black/60 hover:bg-black/90 text-white rounded-full p-2 backdrop-blur-md transition-colors focus:outline-none">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-
-                <div class="absolute bottom-4 left-6 right-6">
-                    <span class="inline-block bg-teal-600 text-white text-xs font-semibold px-3 py-1 rounded-full mb-2">Pertolongan Pertama</span>
-                    <h2 class="text-2xl sm:text-3xl font-bold text-white">Penanganan Dini Demam dan Flu pada Santri</h2>
+    <!-- Modal 3: Flu -->
+    <div id="modal-flu" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-card max-w-2xl w-full max-h-[85vh] rounded-3xl border border-emerald-500/30 overflow-hidden flex flex-col shadow-2xl">
+            <div class="p-6 border-b border-white/10 flex items-center justify-between bg-santri-card">
+                <div class="flex items-center gap-3">
+                    <span class="px-3 py-1 rounded-full text-xs font-semibold bg-teal-600 text-white">Pertolongan Pertama</span>
+                    <h3 class="text-lg font-bold text-white">Penanganan Dini Demam dan Flu pada Santri</h3>
                 </div>
-            </div>
-
-            <div class="p-6 overflow-y-auto space-y-4 text-gray-300 text-sm sm:text-base leading-relaxed">
-                <p>
-                    Perubahan cuaca dan padatnya kegiatan asrama sering menyebabkan santri terserang flu dan demam secara bersamaan. Penanganan awal yang tepat oleh teman sekobong sangat penting sebelum dirujuk ke tenaga medis.
-                </p>
-
-                <h4 class="text-lg font-semibold text-santri-bright mt-4 mb-2">Langkah Pertolongan Pertama di Asrama</h4>
-                <ol class="list-decimal pl-5 space-y-2 text-gray-300">
-                    <li><strong class="text-white">Kompres Hangat:</strong> Gunakan kain yang dibasahi air hangat (bukan air dingin/es) pada dahi, leher, atau ketiak untuk membantu menurunkan suhu tubuh.</li>
-                    <li><strong class="text-white">Banyak Minum Air Hangat:</strong> Cegah dehidrasi dengan memberikan air putih hangat, teh hangat, atau sup.</li>
-                    <li><strong class="text-white">Gunakan Masker:</strong> Minta santri yang sakit memakai masker agar tidak menularkan virus flu ke teman satu kamar.</li>
-                    <li><strong class="text-white">Istirahat Cukup & Gunakan Selimut Secukupnya:</strong> Biarkan santri beristirahat dan hindari penggunaan pakaian terlalu tebal jika suhu tubuh tinggi.</li>
-                </ol>
-
-                <div class="bg-santri-hover border-l-4 border-teal-500 p-4 rounded-r-lg mt-6">
-                    <p class="text-xs sm:text-sm text-teal-200 font-medium">
-                        ⚠️ <strong>Kapan Harus Lapor Pengurus/Poskestren?</strong><br>
-                        Segera laporkan jika demam melebihi 38.5°C selama lebih dari 2 hari, disertai sesak napas, atau santri tampak sangat lemas dan tidak bisa masuk makanan.
-                    </p>
-                </div>
-            </div>
-
-            <div class="p-4 bg-santri-bg border-t border-santri-accent/30 flex justify-end">
-                <button onclick="closeModal('modal-flu')" class="px-5 py-2 bg-santri-accent hover:bg-santri-light text-white font-medium rounded-xl text-sm transition-colors">
-                    Tutup Artikel
+                <button onclick="closeModal('modal-flu')" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
                 </button>
+            </div>
+            <div class="p-6 overflow-y-auto space-y-4 text-slate-300 text-sm leading-relaxed">
+                <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80" alt="Flu" class="w-full h-48 object-cover rounded-2xl mb-4">
+                <p>Perubahan cuaca sering memicu demam dan flu pada santri.</p>
+                <h4 class="text-base font-bold text-teal-400">Pertolongan Pertama:</h4>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>Kompres air hangat jika demam.</li>
+                    <li>Gunakan masker agar tidak menulari teman sekobong.</li>
+                </ul>
+            </div>
+            <div class="p-4 border-t border-white/10 bg-santri-card/50 flex justify-end">
+                <button onclick="closeModal('modal-flu')" class="px-5 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-medium text-xs">Tutup Artikel</button>
             </div>
         </div>
     </div>
 
-
-    <!-- ========================================== -->
-    <!-- JAVASCRIPT UNTUK MODAL INTERAKTIF          -->
-    <!-- ========================================== -->
+    <!-- JavaScript Interaktif Modal -->
     <script>
-        // Fungsi untuk membuka modal
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) {
-                modal.classList.remove('hidden');
-                document.body.classList.add('overflow-hidden'); // Mencegah background scroll
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modal.classList.add('opacity-100');
+                document.body.style.overflow = 'hidden';
             }
         }
 
-        // Fungsi untuk menutup modal
         function closeModal(modalId) {
             const modal = document.getElementById(modalId);
             if (modal) {
-                modal.classList.add('hidden');
-                document.body.classList.remove('overflow-hidden'); // Mengembalikan scroll background
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                modal.classList.remove('opacity-100');
+                document.body.style.overflow = '';
             }
         }
 
-        // Menutup modal saat menekan tombol ESC di keyboard
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                const modals = document.querySelectorAll('[id^="modal-"]');
-                modals.forEach(modal => {
-                    if (!modal.classList.contains('hidden')) {
-                        closeModal(modal.id);
-                    }
-                });
-            }
+        window.addEventListener('click', (e) => {
+            ['modal-scabies', 'modal-hafalan', 'modal-flu'].forEach(id => {
+                const modal = document.getElementById(id);
+                if (e.target === modal) closeModal(id);
+            });
         });
     </script>
 </body>
 </html>
-    <!-- Schedule & Duty Section -->
-    <section id="schedule" class="py-24 px-6 relative bg-santri-card/30">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-emerald-400 text-sm font-extrabold uppercase tracking-widest mb-2">Jadwal Tugas</h2>
-                <p class="text-3xl sm:text-4xl font-bold text-white">Dokter Pembina & Piket SantriHusada</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Doctor Card 1 -->
-                <div class="glass-card rounded-3xl p-6 border border-emerald-500/20 flex flex-col justify-between hover:border-emerald-400/50 transition-all">
-                    <div>
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-14 h-14 rounded-full bg-emerald-600/30 border border-emerald-400 flex items-center justify-center text-2xl text-emerald-300 shadow-lg">
-                                <i class="fa-solid fa-user-doctor"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-bold text-white">Yeni Vidia Irawati,Amd.Kep</h3>
-                                <p class="text-xs text-emerald-400">Perawat Penanggung Jawab</p>
-                            </div>
-                        </div>
-                        <p class="text-slate-400 text-sm mb-4">Visit rutin, konsultasi kesehatan umum, dan evaluasi sanitasi lingkungan pondok.</p>
-                    </div>
-                    <div class="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-300">
-                        <span><i class="fa-regular fa-calendar text-emerald-400 mr-1"></i> Selasa & Kamis</span>
-                        <span class="font-bold text-amber-400">14.00 - 17.00 WIB</span>
-                    </div>
-                </div>
-
-                <!-- Doctor Card 2 -->
-                <div class="glass-card rounded-3xl p-6 border border-emerald-500/20 flex flex-col justify-between hover:border-emerald-400/50 transition-all">
-                    <div>
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-14 h-14 rounded-full bg-emerald-600/30 border border-emerald-400 flex items-center justify-center text-2xl text-emerald-300 shadow-lg">
-                                <i class="fa-solid fa-user-nurse"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-bold text-white">Jennei Jovita Ramdhani</h3>
-                                <p class="text-xs text-emerald-400">Perawat Mitra Poskestren</p>
-                            </div>
-                        </div>
-                        <p class="text-slate-400 text-sm mb-4">Pemeriksaan medis harian, perawatan luka, dan pertolongan pertama santri putri.</p>
-                    </div>
-                    <div class="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-300">
-                        <span><i class="fa-regular fa-calendar text-emerald-400 mr-1"></i> Senin - Kamis</span>
-                        <span class="font-bold text-amber-400">17.00 - 20.00 WIB</span>
-                    </div>
-                </div>
-
-                <!-- SantriHusada Duty -->
-                <div class="glass-card rounded-3xl p-6 border border-emerald-500/20 flex flex-col justify-between hover:border-amber-400/50 transition-all">
-                    <div>
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-14 h-14 rounded-full bg-amber-500/20 border border-amber-400 flex items-center justify-center text-2xl text-amber-400 shadow-lg">
-                                <i class="fa-solid fa-hands-holding-child"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-bold text-white">Tim SantriHusada</h3>
-                                <p class="text-xs text-amber-400">Pengurus Kesehatan Santri</p>
-                            </div>
-                        </div>
-                        <p class="text-slate-400 text-sm mb-4">Santri senior terlatih P3K yang bertugas piket bergantian menangani santri sakit ringan.</p>
-                    </div>
-                    <div class="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-300">
-                        <span><i class="fa-regular fa-clock text-emerald-400 mr-1"></i> Piket Harian</span>
-                        <span class="font-bold text-emerald-400">24 Jam Standby</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Registration / Consultation Form Section -->
-    <section id="consultation" class="py-24 px-6 relative">
-        <div class="max-w-4xl mx-auto glass-card rounded-3xl p-8 sm:p-12 border border-emerald-500/30 relative overflow-hidden shadow-2xl">
-            <div class="text-center mb-10">
-                <h2 class="text-emerald-400 text-sm font-extrabold uppercase tracking-widest mb-2">Formulir Pendaftaran</h2>
-                <p class="text-3xl font-bold text-white">Daftar Berobat / Konsultasi Santri</p>
-                <p class="text-slate-400 text-sm mt-2">Silakan isi data keluhan di bawah ini untuk mempercepat pelayanan di Poskestren.</p>
-            </div>
-
-            <form id="health-form" class="space-y-6">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-slate-300 text-sm font-medium mb-2">Nama Lengkap Santri</label>
-                        <input type="text" id="santri-name" required class="w-full bg-santri-dark/80 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors" placeholder="Masukkan nama santri">
-                    </div>
-                    <div>
-                        <label class="block text-slate-300 text-sm font-medium mb-2">Komplek / Asrama</label>
-                        <input type="text" id="santri-room" required class="w-full bg-santri-dark/80 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors" placeholder="Contoh: Komplek / Asrama ">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-slate-300 text-sm font-medium mb-2">Kategori Santri</label>
-                        <select class="w-full bg-santri-dark/80 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors">
-                            <option value="putra">Santri Putra</option>
-                            <option value="putri">Santri Putri</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-slate-300 text-sm font-medium mb-2">Layanan yang Dibutuhkan</label>
-                        <select class="w-full bg-santri-dark/80 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors">
-                            <option value="pemeriksaan">Pemeriksaan Umum / Berobat</option>
-                            <option value="obat">Minta Obat / P3K</option>
-                            <option value="karantina">Izin Karantina / Istirahat</option>
-                            <option value="konsultasi">Konsultasi Kesehatan</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-slate-300 text-sm font-medium mb-2">Keluhan Kesehatan / Gejala</label>
-                    <textarea rows="4" id="santri-complaint" required class="w-full bg-santri-dark/80 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors" placeholder="Jelaskan gejalanya (misal: pusing, demam sejak semalam, batuk, dll)..."></textarea>
-                </div>
-
-                <button type="submit" id="submit-btn" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 text-white font-bold shadow-xl hover:opacity-90 transition-all flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-paper-plane"></i> Kirim Pendaftaran Berobat
-                </button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Back to Top Button -->
-    <button id="back-to-top" class="fixed bottom-6 left-6 z-40 w-12 h-12 rounded-full bg-emerald-600 text-white shadow-xl flex items-center justify-center opacity-0 pointer-events-none transition-all hover:bg-emerald-500 hover:scale-110">
-        <i class="fa-solid fa-arrow-up"></i>
-    </button>
-
-    <!-- Footer -->
-    <footer class="py-10 border-t border-white/10 text-slate-400 text-sm bg-santri-dark">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div>
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-bold shadow">
-                        <i class="fa-solid fa-heart-pulse text-sm"></i>
-                    </div>
-                    <span class="text-lg font-bold text-white">Poskestren Raudlatul Musthofa</span>
-                </div>
-                <p class="text-xs text-slate-400 leading-relaxed">Divisi Kesehatan Pondok Pesantren Raudlatul Musthofa. Mengabdi untuk kesehatan dan kesejahteraan para penuntut ilmu syar'i.</p>
-            </div>
-
-            <div>
-                <h4 class="text-white font-bold mb-3">Kontak Darurat & Lokasi</h4>
-                <p class="text-xs text-slate-400 mb-2"><i class="fa-solid fa-location-dot text-emerald-400 mr-2"></i> Gedung Poskestren Lantai 1, Area Samping Masjid Utama</p>
-                <p class="text-xs text-slate-400 mb-2"><i class="fa-solid fa-phone text-emerald-400 mr-2"></i> Hotline: +62 812-3456-7890</p>
-                <p class="text-xs text-slate-400"><i class="fa-solid fa-envelope text-emerald-400 mr-2"></i> poskestren@raudlatulmusthofa.ac.id</p>
-            </div>
-
-            <div>
-                <h4 class="text-white font-bold mb-3">Jam Operasional Layanan</h4>
-                <p class="text-xs text-slate-400 mb-1"><b>Pemeriksaan Rutin:</b> 08.00 - 11.00 & 16.00 - 20.00 WIB</p>
-                <p class="text-xs text-slate-400 mb-1"><b>Layanan Darurat (UGD):</b> 24 Jam Nonstop</p>
-            </div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-6 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
-            <p>&copy; 2026 Poskestren PP. Raudlatul Musthofa. Khidmah Untuk Santri.</p>
-            <div class="flex space-x-4 mt-4 sm:mt-0">
-                <a href="https://wa.me/6281234567890" target="_blank" class="hover:text-emerald-400 transition-colors"><i class="fa-brands fa-whatsapp text-base"></i></a>
-                <a href="#" class="hover:text-emerald-400 transition-colors"><i class="fa-brands fa-instagram text-base"></i></a>
-                <a href="#" class="hover:text-emerald-400 transition-colors"><i class="fa-brands fa-youtube text-base"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- JavaScript for Interactivity -->
-    <script>
-        // Toggle Mobile Menu
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            if (mobileMenu.classList.contains('hidden')) {
-                menuIcon.classList.remove('fa-xmark');
-                menuIcon.classList.add('fa-bars');
-            } else {
-                menuIcon.classList.remove('fa-bars');
-                menuIcon.classList.add('fa-xmark');
-            }
-        });
-
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                menuIcon.classList.remove('fa-xmark');
-                menuIcon.classList.add('fa-bars');
-            });
-        });
-
-        // Toast Notification System
-        function showToast(title, message) {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = 'glass-card px-5 py-4 rounded-2xl border border-emerald-500/40 shadow-2xl text-white text-sm flex items-center gap-3 transform translate-y-5 opacity-0 transition-all duration-300 pointer-events-auto';
-            toast.innerHTML = `
-                <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-                    <i class="fa-solid fa-circle-info"></i>
-                </div>
-                <div>
-                    <p class="font-bold text-emerald-400">${title}</p>
-                    <p class="text-xs text-slate-300">${message}</p>
-                </div>
-            `;
-            container.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.classList.remove('translate-y-5', 'opacity-0');
-            }, 50);
-
-            setTimeout(() => {
-                toast.classList.add('translate-y-5', 'opacity-0');
-                setTimeout(() => toast.remove(), 300);
-            }, 4000);
-        }
-
-        // Handle Health Form Submission
-        const healthForm = document.getElementById('health-form');
-        healthForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('santri-name').value;
-            showToast('Pendaftaran Berhasil!', `Data pemeriksaan untuk ${name} telah dikirim ke petugas piket.`);
-            healthForm.reset();
-        });
-
-        // Back to Top Button & Scroll Effect
-        const backToTopBtn = document.getElementById('back-to-top');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
-                backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
-            } else {
-                backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
-            }
-        });
-
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // Animated Statistics Counter
-        const counters = document.querySelectorAll('.counter');
-        let animated = false;
-
-        function runCounters() {
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                let count = 0;
-                const speed = target / 50;
-                const updateCount = () => {
-                    count += speed;
-                    if (count < target) {
-                        counter.innerText = Math.ceil(count);
-                        setTimeout(updateCount, 30);
-                    } else {
-                        counter.innerText = target;
-                    }
-                };
-                updateCount();
-            });
-        }
-
-        window.addEventListener('scroll', () => {
-            const scrollPos = window.scrollY + window.innerHeight;
-            const aboutSection = document.getElementById('about');
-            if (aboutSection && scrollPos >= aboutSection.offsetTop + 200 && !animated) {
-                runCounters();
-                animated = true;
-            }
-        });
-    </script>
-</body>
-</html>
-    
