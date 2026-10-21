@@ -1,3 +1,14 @@
+<head>
+  <!-- SCRIPT PENGAMAN: Cek apakah user sudah login atau belum -->
+  <script>
+    if (sessionStorage.getItem("isLoggedIn") !== "true") {
+      // Jika belum login, otomatis arahkan ke halaman login.html
+      window.location.href = "login.html";
+    }
+  </script>
+  
+  <!-- (Kode <head> bawaan dashboard Anda yang lain ditaruh di bawah sini) -->
+</head>
 <!DOCTYPE html>
 <html lang="id">
 <head>
