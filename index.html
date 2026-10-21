@@ -1,389 +1,1345 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>POSKESTREN - Rekam Medis & Inventaris Obat</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POSKESTREN - Pos Kesehatan Pesantren</title>
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- SheetJS CDN for Excel Export/Import -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
-  <style>
-    :root {
-      --primary-color: #0f5132;
-      --secondary-color: #198754;
-      --bg-light: #f8f9fa;
-    }
-    body {
-      background-color: var(--bg-light);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .navbar {
-      background-color: var(--primary-color) !important;
-    }
-    .card {
-      border: none;
-      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-      border-radius: 10px;
-    }
-    .card-header {
-      background-color: #fff;
-      border-bottom: 2px solid var(--bg-light);
-      font-weight: 600;
-    }
-    .badge-out {
-      background-color: #dc3545;
-    }
-    .badge-low {
-      background-color: #ffc107;
-      color: #000;
-    }
+    <!-- ========================================== -->
+    <!-- BAGIAN STYLESHEET (CSS MODERN & FUTURISTIK) -->
+    <!-- ========================================== -->
+    <style>
+        :root {
+            --bg-main: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --bg-card-hover: rgba(51, 65, 85, 0.8);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --primary-gradient: linear-gradient(135deg, #059669 0%, #0d9488 100%);
+            --accent-emerald: #10b981;
+            --accent-teal: #14b8a6;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
 
-    /* Style Khusus untuk Mode Cetak / Surat Izin */
-    @media print {
-      body * {
-        visibility: hidden;
-      }
-      #print-area, #print-area * {
-        visibility: visible;
-      }
-      #print-area {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        padding: 20px;
-        font-family: 'Courier New', Courier, monospace; /* Tampilan mirip format teks ASCII */
-        white-space: pre-wrap;
-        font-size: 14px;
-        line-height: 1.5;
-      }
-    }
-  </style>
+        [data-theme="light"] {
+            --bg-main: #f1f5f9;
+            --bg-card: rgba(255, 255, 255, 0.85);
+            --bg-card-hover: #ffffff;
+            --border-color: rgba(226, 232, 240, 0.8);
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --glass-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--glass-shadow);
+            border-radius: 16px;
+        }
+
+        .glass-header {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        [data-theme="light"] .glass-header {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--text-secondary);
+            border-radius: 10px;
+        }
+
+        /* Header Navigation */
+        .header-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            background: var(--primary-gradient);
+            color: white;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 0.75rem 1.25rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-btn.active {
+            color: white;
+            background: var(--primary-gradient);
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+        }
+
+        /* Buttons & Badges */
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 10px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 10px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .badge-warning-pulse {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--accent-amber);
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(245, 158, 11, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+        }
+
+        /* Layout Grid & Cards */
+        .main-container {
+            max-width: 1280px;
+            margin: 1.5rem auto;
+            padding: 0 1.5rem;
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        .grid-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            padding: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        /* Table Styling */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-secondary);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        tr:hover td {
+            background: var(--bg-card-hover);
+        }
+
+        /* Forms & Inputs */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-group label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        input, select, textarea {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.65rem 0.9rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            outline: none;
+            width: 100%;
+        }
+
+        [data-theme="light"] input, 
+        [data-theme="light"] select, 
+        [data-theme="light"] textarea {
+            background: #ffffff;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--accent-emerald);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+
+        /* Modal Backdrop */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        /* Toast Notification Container */
+        #toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            box-shadow: var(--glass-shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            animation: slideIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Print Specific Styles for Surat Izin Sakit */
+        @media print {
+            body * { visibility: hidden; }
+            #printable-surat, #printable-surat * { visibility: visible; }
+            #printable-surat {
+                position: absolute;
+                left: 0; top: 0; width: 100%;
+                background: white !important;
+                color: black !important;
+                padding: 20px;
+            }
+            .no-print { display: none !important; }
+        }
+    </style>
 </head>
-<body>
+<body data-theme="dark">
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark mb-4">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="#"><i class="bi bi-hospital me-2"></i>POSKESTREN</a>
-      <span class="navbar-text text-white small">Sistem Rekam Medis & Stok Obat Santri</span>
-    </div>
-  </nav>
+    <!-- ========================================== -->
+    <!-- BAGIAN HTML (STRUKTUR TAMPILAN USER INTERFACE) -->
+    <!-- ========================================== -->
+    
+    <!-- Top Header Navigation -->
+    <header class="glass-header no-print sticky top-0 z-40">
+        <div class="header-container">
+            <div class="logo-group">
+                <div class="logo-icon"><i class="fa-solid fa-notes-medical"></i></div>
+                <div>
+                    <h1 style="font-size: 1.1rem; font-weight: 800; tracking-wide: 0.05em;">POSKESTREN</h1>
+                    <p style="font-size: 0.7rem; color: var(--text-secondary);">Pos Kesehatan Pesantren Modern</p>
+                </div>
+            </div>
 
-  <div class="container mb-5">
-    <!-- Alert Notifikasi Obat -->
-    <div id="alert-container"></div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div id="low-stock-badge" class="badge-warning-pulse" onclick="switchTab('inventaris')" style="display: none;">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span id="low-stock-count">0</span> Alert Stok
+                </div>
+                
+                <button onclick="toggleTheme()" class="btn-secondary" title="Ganti Tema Dark/Light">
+                    <i class="fa-solid fa-moon" id="theme-icon"></i>
+                </button>
 
-    <div class="row">
-      <!-- Form Input Rekam Medis -->
-      <div class="col-md-5 mb-4">
-        <div class="card p-3">
-          <div class="card-header d-flex justify-content-between align-items-center">
-            <span id="form-title"><i class="bi bi-person-plus me-1"></i> Input Rekam Medis</span>
-            <button class="btn btn-sm btn-outline-secondary d-none" id="btn-cancel-edit" onclick="resetFormRM()">Batal</button>
-          </div>
-          <div class="card-body">
-            <form id="form-rm">
-              <input type="hidden" id="rm-id">
-              <div class="mb-2">
-                <label class="form-label small">Nama Lengkap Santri</label>
-                <input type="text" class="form-control form-control-sm" id="rm-nama" required>
-              </div>
-              <div class="row mb-2">
-                <div class="col">
-                  <label class="form-label small">NIS / ID</label>
-                  <input type="text" class="form-control form-control-sm" id="rm-nis" required>
+                <button onclick="openModal('modal-export-import')" class="btn-primary">
+                    <i class="fa-solid fa-database"></i>
+                    <span>Backup / Export</span>
+                </button>
+            </div>
+        </div>
+
+        <nav class="nav-tabs">
+            <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn active"><i class="fa-solid fa-chart-pie"></i><span>Dashboard</span></button>
+            <button onclick="switchTab('rekam-medis')" id="tab-rekam-medis" class="tab-btn"><i class="fa-solid fa-file-medical"></i><span>Rekam Medis</span></button>
+            <button onclick="switchTab('inventaris')" id="tab-inventaris" class="tab-btn"><i class="fa-solid fa-pills"></i><span>Stok Obat</span></button>
+            <button onclick="switchTab('surat-izin')" id="tab-surat-izin" class="tab-btn"><i class="fa-solid fa-file-signature"></i><span>Surat Izin Sakit</span></button>
+        </nav>
+    </header>
+
+    <!-- Toast Notifications Placeholder -->
+    <div id="toast-container" class="no-print"></div>
+
+    <!-- Main Dynamic Content Wrapper -->
+    <main class="main-container no-print">
+
+        <!-- TAB 1: DASHBOARD OVERVIEW -->
+        <section id="page-dashboard">
+            <div class="grid-stats">
+                <div class="glass-panel stat-card">
+                    <div>
+                        <p style="font-size: 0.75rem; color: var(--text-secondary); font-weight: 700;">PASIEN HARI INI</p>
+                        <h2 style="font-size: 1.8rem; font-weight: 800; margin-top: 4px;" id="stat-pasien-today">0</h2>
+                    </div>
+                    <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald);"><i class="fa-solid fa-user-injured"></i></div>
                 </div>
-                <div class="col">
-                  <label class="form-label small">Kamar / Perguruan</label>
-                  <input type="text" class="form-control form-control-sm" id="rm-kamar" required>
+
+                <div class="glass-panel stat-card">
+                    <div>
+                        <p style="font-size: 0.75rem; color: var(--text-secondary); font-weight: 700;">TOTAL REKAM MEDIS</p>
+                        <h2 style="font-size: 1.8rem; font-weight: 800; margin-top: 4px;" id="stat-total-rm">0</h2>
+                    </div>
+                    <div class="stat-icon" style="background: rgba(20, 184, 166, 0.15); color: var(--accent-teal);"><i class="fa-solid fa-folder-open"></i></div>
                 </div>
-              </div>
-              <div class="mb-2">
-                <label class="form-label small">Alamat Orang Tua/Wali</label>
-                <input type="text" class="form-control form-control-sm" id="rm-alamat-ortu" placeholder="Alamat rumah santri">
-              </div>
-              <div class="mb-2">
-                <label class="form-label small">Hari, Tanggal Pemeriksaan</label>
-                <input type="date" class="form-control form-control-sm" id="rm-tanggal" required>
-              </div>
-              <div class="mb-2">
-                <label class="form-label small">Keluhan / Diagnosis</label>
-                <textarea class="form-control form-control-sm" id="rm-diagnosis" rows="2" required></textarea>
-              </div>
-              <div class="mb-2">
-                <label class="form-label small">Resep Obat</label>
-                <select class="form-select form-select-sm" id="rm-obat">
-                  <option value="">-- Pilih Obat --</option>
-                </select>
-              </div>
-              <div class="row mb-3">
-                <div class="col">
-                  <label class="form-label small">Tgl Keluar (Izin)</label>
-                  <input type="date" class="form-control form-control-sm" id="rm-tgl-keluar">
+
+                <div class="glass-panel stat-card">
+                    <div>
+                        <p style="font-size: 0.75rem; color: var(--text-secondary); font-weight: 700;">OBAT MENIPIS / HABIS</p>
+                        <h2 style="font-size: 1.8rem; font-weight: 800; margin-top: 4px;" id="stat-low-stock">0</h2>
+                    </div>
+                    <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-amber);"><i class="fa-solid fa-box-open"></i></div>
                 </div>
-                <div class="col">
-                  <label class="form-label small">Tgl Kembali</label>
-                  <input type="date" class="form-control form-control-sm" id="rm-tgl-kembali">
+
+                <div class="glass-panel stat-card">
+                    <div>
+                        <p style="font-size: 0.75rem; color: var(--text-secondary); font-weight: 700;">SANTRI IZIN ISTIRAHAT</p>
+                        <h2 style="font-size: 1.8rem; font-weight: 800; margin-top: 4px;" id="stat-izin-aktif">0</h2>
+                    </div>
+                    <div class="stat-icon" style="background: rgba(244, 63, 94, 0.15); color: var(--accent-rose);"><i class="fa-solid fa-bed"></i></div>
                 </div>
-              </div>
-              <div class="mb-3">
-                <label class="form-label small">Nama Petugas Poskestren</label>
-                <input type="text" class="form-control form-control-sm" id="rm-petugas" required>
-              </div>
-              <button type="submit" class="btn btn-success btn-sm w-100" id="btn-save-rm">Simpan Rekam Medis</button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+                <!-- Pemeriksaan Terbaru -->
+                <div class="glass-panel" style="padding: 1.25rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h3 style="font-size: 0.95rem; font-weight: 700;"><i class="fa-solid fa-clock-rotate-left" style="color: var(--accent-emerald); margin-right: 8px;"></i> Pemeriksaan Terbaru</h3>
+                        <button onclick="openModal('modal-rekam-medis')" class="btn-primary" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;"><i class="fa-solid fa-plus"></i> RM Baru</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr><th>Tanggal</th><th>Santri</th><th>Diagnosis</th><th>Aksi</th></tr>
+                            </thead>
+                            <tbody id="dash-recent-rm"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Alert Stok Obat Card -->
+                <div class="glass-panel" style="padding: 1.25rem;">
+                    <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem;"><i class="fa-solid fa-triangle-exclamation" style="color: var(--accent-amber); margin-right: 8px;"></i> Status Stok Obat Kritis</h3>
+                    <div id="dash-stock-warnings" style="display: flex; flex-direction: column; gap: 10px; max-height: 280px; overflow-y: auto;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: REKAM MEDIS -->
+        <section id="page-rekam-medis" style="display: none;">
+            <div class="glass-panel" style="padding: 1.25rem; margin-bottom: 1.5rem;">
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <h3 style="font-size: 1.1rem; font-weight: 800;"><i class="fa-solid fa-notes-medical" style="color: var(--accent-emerald);"></i> Data Rekam Medis Santri</h3>
+                    <button onclick="openModal('modal-rekam-medis')" class="btn-primary"><i class="fa-solid fa-plus"></i> Tambah Rekam Medis</button>
+                </div>
+
+                <!-- Filter Controls -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                    <div class="input-group">
+                        <label>Cari Nama / NIS / Diagnosis</label>
+                        <input type="text" id="filter-search-rm" oninput="applyRMFilters()" placeholder="Ketik kata kunci...">
+                    </div>
+                    <div class="input-group">
+                        <label>Filter Kamar / Asrama</label>
+                        <input type="text" id="filter-kamar-rm" oninput="applyRMFilters()" placeholder="Semua Kamar...">
+                    </div>
+                    <div class="input-group">
+                        <label>Dari Tanggal</label>
+                        <input type="date" id="filter-start-rm" onchange="applyRMFilters()">
+                    </div>
+                    <div class="input-group">
+                        <label>Sampai Tanggal</label>
+                        <input type="date" id="filter-end-rm" onchange="applyRMFilters()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table RM -->
+            <div class="glass-panel table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Santri (NIS)</th>
+                            <th>Kamar</th>
+                            <th>Anamnesa & Vital</th>
+                            <th>Diagnosis</th>
+                            <th>Resep Obat</th>
+                            <th style="text-align: center;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-rm-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 3: INVENTARIS STOK OBAT -->
+        <section id="page-inventaris" style="display: none;">
+            <div class="glass-panel" style="padding: 1.25rem; margin-bottom: 1.5rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                    <div>
+                        <h3 style="font-size: 1.1rem; font-weight: 800;"><i class="fa-solid fa-pills" style="color: var(--accent-teal);"></i> Stok & Inventaris Obat</h3>
+                        <p style="font-size: 0.75rem; color: var(--text-secondary);">Kelola persediaan obat dan batas minimum peringatan stok.</p>
+                    </div>
+                    <button onclick="openModal('modal-obat')" class="btn-primary"><i class="fa-solid fa-plus"></i> Tambah Obat Baru</button>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <input type="text" id="search-obat" oninput="renderObatTable()" placeholder="Cari nama obat atau kategori...">
+                </div>
+            </div>
+
+            <div class="glass-panel table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nama Obat</th>
+                            <th>Kategori</th>
+                            <th>Stok Sisa</th>
+                            <th>Satuan</th>
+                            <th>Min. Stok</th>
+                            <th>Kadaluarsa</th>
+                            <th>Status</th>
+                            <th style="text-align: center;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-obat-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- TAB 4: SURAT IZIN SAKIT -->
+        <section id="page-surat-izin" style="display: none;">
+            <div class="glass-panel" style="padding: 1.25rem; margin-bottom: 1.5rem;">
+                <h3 style="font-size: 1.1rem; font-weight: 800;"><i class="fa-solid fa-file-signature" style="color: var(--accent-emerald);"></i> Cetak Surat Izin Sakit Santri</h3>
+                <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 4px;">Pilih data santri untuk mencetak surat izin istirahat resmi Poskestren.</p>
+            </div>
+
+            <div class="glass-panel table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Nama Santri</th>
+                            <th>Kamar</th>
+                            <th>Diagnosis</th>
+                            <th>Rekomendasi</th>
+                            <th style="text-align: center;">Cetak</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-surat-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL 1: FORM REKAM MEDIS -->
+    <div id="modal-rekam-medis" class="modal-overlay no-print">
+        <div class="glass-panel modal-content" style="padding: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
+                <h3 id="modal-rm-title" style="font-size: 1.1rem; font-weight: 800;"><i class="fa-solid fa-file-medical"></i> Form Rekam Medis</h3>
+                <button onclick="closeModal('modal-rekam-medis')" style="background: transparent; border: none; color: var(--text-secondary); font-size: 1.2rem; cursor: pointer;">&times;</button>
+            </div>
+            
+            <form id="form-rm" onsubmit="saveRekamMedis(event)" style="display: flex; flex-direction: column; gap: 12px;">
+                <input type="hidden" id="rm-id">
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div class="input-group">
+                        <label>Nama Santri *</label>
+                        <input type="text" id="rm-nama" required placeholder="Ahmad Fauzi">
+                    </div>
+                    <div class="input-group">
+                        <label>NIS / ID Santri *</label>
+                        <input type="text" id="rm-nis" required placeholder="20260012">
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div class="input-group">
+                        <label>Kamar / Asrama *</label>
+                        <input type="text" id="rm-kamar" required placeholder="Al-Ghazali 04">
+                    </div>
+                    <div class="input-group">
+                        <label>Tanggal Pemeriksaan *</label>
+                        <input type="date" id="rm-tanggal" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Anamnesa / Keluhan *</label>
+                    <textarea id="rm-keluhan" rows="2" required placeholder="Demam tinggi, batuk, pusing..."></textarea>
+                </div>
+
+                <!-- Vital Signs -->
+                <div style="background: rgba(0,0,0,0.15); padding: 10px; border-radius: 10px; border: 1px solid var(--border-color);">
+                    <p style="font-size: 0.7rem; font-weight: 800; color: var(--text-secondary); margin-bottom: 8px;">PEMERIKSAAN VITAL</p>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+                        <input type="text" id="rm-td" placeholder="TD (120/80)">
+                        <input type="number" step="0.1" id="rm-suhu" placeholder="Suhu (°C)">
+                        <input type="number" step="0.1" id="rm-bb" placeholder="BB (kg)">
+                        <input type="number" id="rm-tb" placeholder="TB (cm)">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Diagnosis *</label>
+                    <input type="text" id="rm-diagnosis" required placeholder="Febris / ISPA / Gastritis">
+                </div>
+
+                <!-- Resep Obat Dynamic Multiselect -->
+                <div style="background: rgba(16, 185, 129, 0.05); padding: 12px; border-radius: 10px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <label style="font-size: 0.75rem; font-weight: 800; color: var(--accent-emerald);">RESEP OBAT (OTOMATIS POTONG STOK)</label>
+                        <button type="button" onclick="addResepRow()" class="btn-primary" style="padding: 0.25rem 0.6rem; font-size: 0.7rem;"><i class="fa-solid fa-plus"></i> Obat</button>
+                    </div>
+                    <div id="resep-container" style="display: flex; flex-direction: column; gap: 8px;"></div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div class="input-group">
+                        <label>Petugas / Dokter *</label>
+                        <input type="text" id="rm-petugas" required placeholder="Dr. Ridwan">
+                    </div>
+                    <div class="input-group">
+                        <label>Rekomendasi Izin</label>
+                        <select id="rm-lama-izin">
+                            <option value="0">Tidak Perlu Izin</option>
+                            <option value="1">1 Hari Istirahat Kamar</option>
+                            <option value="2">2 Hari Istirahat Kamar</option>
+                            <option value="3">3 Hari Istirahat Kamar</option>
+                            <option value="pulang">Rekomendasi Pulang</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px;">
+                    <button type="button" onclick="closeModal('modal-rekam-medis')" class="btn-secondary">Batal</button>
+                    <button type="submit" class="btn-primary">Simpan Rekam Medis</button>
+                </div>
             </form>
-          </div>
         </div>
-      </div>
-
-      <!-- Tabel Rekam Medis & Pencarian -->
-      <div class="col-md-7 mb-4">
-        <div class="card p-3">
-          <div class="card-header d-flex justify-content-between align-items-center">
-            <span><i class="bi bi-journal-medical me-1"></i> Data Rekam Medis</span>
-            <div>
-              <button class="btn btn-outline-success btn-sm" onclick="exportData()"><i class="bi bi-file-earmark-excel me-1"></i> Export Excel</button>
-            </div>
-          </div>
-          <div class="card-body">
-            <div class="input-group input-group-sm mb-3">
-              <span class="input-group-text"><i class="bi bi-search"></i></span>
-              <input type="text" class="form-control" id="search-rm" placeholder="Cari nama, NIS, atau diagnosis..." onkeyup="renderRM()">
-            </div>
-            <div class="table-responsive">
-              <table class="table table-hover table-striped align-middle small">
-                <thead class="table-dark">
-                  <tr>
-                    <th>Tgl</th>
-                    <th>Nama / NIS</th>
-                    <th>Diagnosis</th>
-                    <th>Obat</th>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody id="tbody-rm"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 
-  <!-- Area Rahasia Khusus Cetak Surat -->
-  <div id="print-area"></div>
+    <!-- MODAL 2: FORM OBAT -->
+    <div id="modal-obat" class="modal-overlay no-print">
+        <div class="glass-panel modal-content" style="padding: 1.5rem; max-width: 500px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
+                <h3 id="modal-obat-title" style="font-size: 1.1rem; font-weight: 800;"><i class="fa-solid fa-pills"></i> Form Data Obat</h3>
+                <button onclick="closeModal('modal-obat')" style="background: transparent; border: none; color: var(--text-secondary); font-size: 1.2rem; cursor: pointer;">&times;</button>
+            </div>
 
-  <script>
-    // Inisialisasi Data Storage
-    let rekamMedis = JSON.parse(localStorage.getItem('poskestren_rm')) || [];
-    let stokObat = JSON.parse(localStorage.getItem('poskestren_obat')) || [
-      { id: 1, nama: 'Paracetamol 500mg', stok: 20, minStok: 5 },
-      { id: 2, nama: 'Amoxicillin 500mg', stok: 3, minStok: 5 }
-    ];
+            <form id="form-obat" onsubmit="saveObat(event)" style="display: flex; flex-direction: column; gap: 12px;">
+                <input type="hidden" id="obat-id">
+                
+                <div class="input-group">
+                    <label>Nama Obat *</label>
+                    <input type="text" id="obat-nama" required placeholder="Paracetamol 500mg">
+                </div>
 
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('rm-tanggal').valueAsDate = new Date();
-      loadObatOptions();
-      checkNotifObat();
-      renderRM();
-    });
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div class="input-group">
+                        <label>Kategori *</label>
+                        <select id="obat-kategori" required>
+                            <option value="Analgesik & Antipiretik">Analgesik & Antipiretik</option>
+                            <option value="Antibiotik">Antibiotik</option>
+                            <option value="Antihistamin">Antihistamin</option>
+                            <option value="Batuk & Flu">Batuk & Flu</option>
+                            <option value="Pencernaan / Maag">Pencernaan / Maag</option>
+                            <option value="Vitamin">Vitamin</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Satuan *</label>
+                        <input type="text" id="obat-satuan" required placeholder="Tablet / Botol">
+                    </div>
+                </div>
 
-    function saveToStorage() {
-      localStorage.setItem('poskestren_rm', JSON.stringify(rekamMedis));
-      localStorage.setItem('poskestren_obat', JSON.stringify(stokObat));
-    }
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div class="input-group">
+                        <label>Stok Saat Ini *</label>
+                        <input type="number" id="obat-stok" min="0" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Min. Stok Warning *</label>
+                        <input type="number" id="obat-min-stok" min="1" required value="10">
+                    </div>
+                </div>
 
-    function loadObatOptions() {
-      const select = document.getElementById('rm-obat');
-      select.innerHTML = '<option value="">-- Pilih Obat --</option>';
-      stokObat.forEach(o => {
-        select.innerHTML += `<option value="${o.nama}">${o.nama} (Stok: ${o.stok})</option>`;
-      });
-    }
+                <div class="input-group">
+                    <label>Tanggal Kadaluarsa (Expired)</label>
+                    <input type="date" id="obat-exp">
+                </div>
 
-    function checkNotifObat() {
-      const container = document.getElementById('alert-container');
-      container.innerHTML = '';
-      stokObat.forEach(o => {
-        if (o.stok <= 0) {
-          container.innerHTML += `<div class="alert alert-danger alert-dismissible fade show p-2 small" role="alert">
-            <strong>Peringatan!</strong> Stok obat <strong>${o.nama}</strong> telah HABIS!
-            <button type="button" class="btn-close p-2" data-bs-dismiss="alert"></button>
-          </div>`;
-        } else if (o.stok <= o.minStok) {
-          container.innerHTML += `<div class="alert alert-warning alert-dismissible fade show p-2 small" role="alert">
-            <strong>Perhatian!</strong> Stok obat <strong>${o.nama}</strong> hampir habis (Sisa: ${o.stok}).
-            <button type="button" class="btn-close p-2" data-bs-dismiss="alert"></button>
-          </div>`;
+                <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px;">
+                    <button type="button" onclick="closeModal('modal-obat')" class="btn-secondary">Batal</button>
+                    <button type="submit" class="btn-primary">Simpan Obat</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: EXPORT / IMPORT -->
+    <div id="modal-export-import" class="modal-overlay no-print">
+        <div class="glass-panel modal-content" style="padding: 1.5rem; max-width: 480px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
+                <h3 style="font-size: 1.1rem; font-weight: 800;"><i class="fa-solid fa-database"></i> Backup & Restore Data</h3>
+                <button onclick="closeModal('modal-export-import')" style="background: transparent; border: none; color: var(--text-secondary); font-size: 1.2rem; cursor: pointer;">&times;</button>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div>
+                    <p style="font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 8px;">EXPORT / BACKUP</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <button onclick="exportExcel()" class="btn-primary" style="justify-content: center;"><i class="fa-solid fa-file-excel"></i> Excel (.xlsx)</button>
+                        <button onclick="exportJSON()" class="btn-secondary" style="justify-content: center;"><i class="fa-solid fa-code"></i> JSON Backup</button>
+                    </div>
+                </div>
+                <hr style="border-color: var(--border-color);">
+                <div>
+                    <p style="font-size: 0.8rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 8px;">RESTORE / IMPORT DATA</p>
+                    <input type="file" id="import-file" accept=".json" style="margin-bottom: 8px;">
+                    <button onclick="importJSON()" class="btn-primary" style="width: 100%; justify-content: center;"><i class="fa-solid fa-upload"></i> Proses Restore File</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEMPLATE SURAT IZIN SAKIT (PRINTABLE) -->
+    <div id="printable-surat" style="display: none;">
+        <div style="max-w: 650px; margin: 0 auto; border: 3px double #000; padding: 30px; font-family: serif;">
+            <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 20px;">
+                <h2 style="font-size: 18pt; margin: 0; font-weight: bold;">POS KESEHATAN PESANTREN (POSKESTREN)</h2>
+                <h4 style="font-size: 12pt; margin: 5px 0 0 0; font-weight: normal;">PONDOK PESANTREN AL-HIDAYAH</h4>
+                <p style="font-size: 9pt; margin: 0;">Jl. Pesantren No. 01 • Telp/WA: (021) 555-0192</p>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 20px;">
+                <u style="font-size: 13pt; font-weight: bold;">SURAT KETERANGAN IZIN SAKIT</u><br>
+                <span style="font-size: 10pt;">Nomor: <span id="print-no-surat"></span></span>
+            </div>
+
+            <p style="font-size: 11pt; line-height: 1.6;">Yang bertanda tangan di bawah ini Petugas Medis POSKESTREN menerangkan bahwa:</p>
+
+            <table style="width: 100%; font-size: 11pt; margin: 15px 0; border: none;">
+                <tr><td style="width: 140px; padding: 4px 0; border:none;">Nama Santri</td><td style="border:none;">: <b id="print-nama"></b></td></tr>
+                <tr><td style="padding: 4px 0; border:none;">NIS / ID</td><td style="border:none;">: <span id="print-nis"></span></td></tr>
+                <tr><td style="padding: 4px 0; border:none;">Kamar / Asrama</td><td style="border:none;">: <span id="print-kamar"></span></td></tr>
+                <tr><td style="padding: 4px 0; border:none;">Diagnosis Medis</td><td style="border:none;">: <i id="print-diagnosis"></i></td></tr>
+            </table>
+
+            <p style="font-size: 11pt; line-height: 1.6;">Berdasarkan hasil pemeriksaan fisik, santri tersebut diberikan rekomendasi:</p>
+            
+            <div style="background: #f1f5f9; border: 1px solid #ccc; padding: 12px; text-align: center; font-weight: bold; margin: 15px 0; font-size: 11pt;" id="print-rekomendasi"></div>
+
+            <p style="font-size: 11pt; line-height: 1.6;">Demikian surat keterangan ini dibuat untuk dipergunakan sebagaimana mestinya.</p>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 50px; font-size: 10pt;">
+                <div style="text-align: center;">
+                    Mengetahui,<br>Pengurus Asrama<br><br><br><br><b>( .................................... )</b>
+                </div>
+                <div style="text-align: center;">
+                    Petugas Medis Poskestren,<br><br><br><br><b id="print-petugas"></b>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- BAGIAN JAVASCRIPT (LOGIKA PINTAR & INTERAKSI) -->
+    <!-- ========================================== -->
+    <script>
+        // Storage Keys
+        const KEY_OBAT = 'poskestren_v2_obat';
+        const KEY_RM = 'poskestren_v2_rm';
+
+        // Initial Data Seed
+        const defaultObat = [
+            { id: 'OBT-1', nama: 'Paracetamol 500mg', kategori: 'Analgesik & Antipiretik', stok: 35, satuan: 'Tablet', minStok: 15, exp: '2027-05-10' },
+            { id: 'OBT-2', nama: 'Amoxicillin 500mg', kategori: 'Antibiotik', stok: 6, satuan: 'Caplet', minStok: 10, exp: '2026-11-15' },
+            { id: 'OBT-3', nama: 'OBH Batuk Sirup', kategori: 'Batuk & Flu', stok: 2, satuan: 'Botol', minStok: 5, exp: '2026-12-01' }
+        ];
+
+        const defaultRM = [
+            {
+                id: 'RM-101',
+                nama: 'Ahmad Fauzi',
+                nis: '20260012',
+                kamar: 'Al-Ghazali 04',
+                tanggal: '2026-10-21',
+                keluhan: 'Demam tinggi dan batuk flu',
+                td: '120/80', suhu: 38.1, bb: 52, tb: 165,
+                diagnosis: 'Febris & ISPA',
+                resep: [{ obatId: 'OBT-1', nama: 'Paracetamol 500mg', qty: 6 }],
+                petugas: 'Dr. Ridwan',
+                lamaIzin: '2'
+            }
+        ];
+
+        // App States
+        let listObat = [];
+        let listRM = [];
+
+        // Application OnLoad Initializer
+        window.onload = function() {
+            loadData();
+            renderDashboard();
+            renderRMTable();
+            renderObatTable();
+            renderSuratTable();
+        };
+
+        function loadData() {
+            const storedObat = localStorage.getItem(KEY_OBAT);
+            listObat = storedObat ? JSON.parse(storedObat) : defaultObat;
+
+            const storedRM = localStorage.getItem(KEY_RM);
+            listRM = storedRM ? JSON.parse(storedRM) : defaultRM;
+
+            saveData();
         }
-      });
-    }
 
-    // Handle Form Submit
-    document.getElementById('form-rm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const id = document.getElementById('rm-id').value;
-      const data = {
-        id: id ? parseInt(id) : Date.now(),
-        nama: document.getElementById('rm-nama').value,
-        nis: document.getElementById('rm-nis').value,
-        kamar: document.getElementById('rm-kamar').value,
-        alamatOrtu: document.getElementById('rm-alamat-ortu').value || '-',
-        tanggal: document.getElementById('rm-tanggal').value,
-        diagnosis: document.getElementById('rm-diagnosis').value,
-        obat: document.getElementById('rm-obat').value || '-',
-        tglKeluar: document.getElementById('rm-tgl-keluar').value || '-',
-        tglKembali: document.getElementById('rm-tgl-kembali').value || '-',
-        petugas: document.getElementById('rm-petugas').value
-      };
-
-      if (id) {
-        const index = rekamMedis.findIndex(r => r.id === parseInt(id));
-        rekamMedis[index] = data;
-      } else {
-        rekamMedis.push(data);
-        // Kurangi stok obat jika ada resep
-        if (data.obat !== '-') {
-          const item = stokObat.find(o => o.nama === data.obat);
-          if (item && item.stok > 0) item.stok -= 1;
+        function saveData() {
+            localStorage.setItem(KEY_OBAT, JSON.stringify(listObat));
+            localStorage.setItem(KEY_RM, JSON.stringify(listRM));
+            updateBadges();
         }
-      }
 
-      saveToStorage();
-      resetFormRM();
-      renderRM();
-      checkNotifObat();
-      loadObatOptions();
-    });
+        // Navigation Tab Switcher
+        function switchTab(tabId) {
+            ['dashboard', 'rekam-medis', 'inventaris', 'surat-izin'].forEach(p => {
+                document.getElementById(`page-${p}`).style.display = 'none';
+                document.getElementById(`tab-${p}`).classList.remove('active');
+            });
+            document.getElementById(`page-${tabId}`).style.display = 'block';
+            document.getElementById(`tab-${tabId}`).classList.add('active');
 
-    function renderRM() {
-      const keyword = document.getElementById('search-rm').value.toLowerCase();
-      const tbody = document.getElementById('tbody-rm');
-      tbody.innerHTML = '';
+            if (tabId === 'dashboard') renderDashboard();
+            if (tabId === 'rekam-medis') renderRMTable();
+            if (tabId === 'inventaris') renderObatTable();
+            if (tabId === 'surat-izin') renderSuratTable();
+        }
 
-      const filtered = rekamMedis.filter(r => 
-        r.nama.toLowerCase().includes(keyword) || 
-        r.nis.toLowerCase().includes(keyword) || 
-        r.diagnosis.toLowerCase().includes(keyword)
-      );
+        // Theme Toggle (Dark / Light)
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                icon.className = 'fa-solid fa-sun';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                icon.className = 'fa-solid fa-moon';
+            }
+        }
 
-      filtered.forEach(r => {
-        tbody.innerHTML += `
-          <tr>
-            <td>${r.tanggal}</td>
-            <td><strong>${r.nama}</strong><br><small class="text-muted">${r.nis} (${r.kamar})</small></td>
-            <td>${r.diagnosis}</td>
-            <td>${r.obat}</td>
-            <td>
-              <button class="btn btn-sm btn-info text-white me-1" onclick="cetakSurat(${r.id})" title="Cetak Surat Izin"><i class="bi bi-printer"></i></button>
-              <button class="btn btn-sm btn-warning text-white me-1" onclick="editRM(${r.id})" title="Edit"><i class="bi bi-pencil"></i></button>
-              <button class="btn btn-sm btn-danger" onclick="hapusRM(${r.id})" title="Hapus"><i class="bi bi-trash"></i></button>
-            </td>
-          </tr>
-        `;
-      });
-    }
+        // Dashboard Visual Stats & Rendering
+        function renderDashboard() {
+            const today = new Date().toISOString().split('T')[0];
+            const pasienToday = listRM.filter(r => r.tanggal === today).length;
+            const lowStockCount = listObat.filter(o => o.stok <= o.minStok).length;
+            const izinCount = listRM.filter(r => r.lamaIzin && r.lamaIzin !== '0').length;
 
-    function resetFormRM() {
-      document.getElementById('form-rm').reset();
-      document.getElementById('rm-id').value = '';
-      document.getElementById('form-title').innerText = 'Input Rekam Medis';
-      document.getElementById('btn-cancel-edit').classList.add('d-none');
-      document.getElementById('rm-tanggal').valueAsDate = new Date();
-    }
+            document.getElementById('stat-pasien-today').innerText = pasienToday;
+            document.getElementById('stat-total-rm').innerText = listRM.length;
+            document.getElementById('stat-low-stock').innerText = lowStockCount;
+            document.getElementById('stat-izin-aktif').innerText = izinCount;
 
-    function editRM(id) {
-      const r = rekamMedis.find(item => item.id === id);
-      if (!r) return;
-      document.getElementById('rm-id').value = r.id;
-      document.getElementById('rm-nama').value = r.nama;
-      document.getElementById('rm-nis').value = r.nis;
-      document.getElementById('rm-kamar').value = r.kamar;
-      document.getElementById('rm-alamat-ortu').value = r.alamatOrtu;
-      document.getElementById('rm-tanggal').value = r.tanggal;
-      document.getElementById('rm-diagnosis').value = r.diagnosis;
-      document.getElementById('rm-obat').value = r.obat;
-      document.getElementById('rm-tgl-keluar').value = r.tglKeluar !== '-' ? r.tglKeluar : '';
-      document.getElementById('rm-tgl-kembali').value = r.tglKembali !== '-' ? r.tglKembali : '';
-      document.getElementById('rm-petugas').value = r.petugas;
+            // Recent RM Table
+            const tbody = document.getElementById('dash-recent-rm');
+            tbody.innerHTML = '';
+            const recent = [...listRM].sort((a,b) => new Date(b.tanggal) - new Date(a.tanggal)).slice(0, 5);
+            
+            recent.forEach(r => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${r.tanggal}</td>
+                        <td><b>${r.nama}</b></td>
+                        <td><span style="background: rgba(16,185,129,0.15); color: var(--accent-emerald); padding: 2px 6px; border-radius: 6px; font-weight:700;">${r.diagnosis}</span></td>
+                        <td><button onclick="printSurat('${r.id}')" class="btn-secondary" style="padding:2px 6px;"><i class="fa-solid fa-print"></i></button></td>
+                    </tr>
+                `;
+            });
 
-      document.getElementById('form-title').innerText = 'Edit Rekam Medis';
-      document.getElementById('btn-cancel-edit').classList.remove('d-none');
-    }
+            // Warnings Card
+            const warnBox = document.getElementById('dash-stock-warnings');
+            warnBox.innerHTML = '';
+            const lowObat = listObat.filter(o => o.stok <= o.minStok);
 
-    function hapusRM(id) {
-      if (confirm('Apakah Anda yakin ingin menghapus data rekam medis ini?')) {
-        rekamMedis = rekamMedis.filter(r => r.id !== id);
-        saveToStorage();
-        renderRM();
-      }
-    }
+            if (lowObat.length === 0) {
+                warnBox.innerHTML = `<p style="font-size:0.8rem; color:var(--text-secondary); text-align:center;">Stok obat aman.</p>`;
+            } else {
+                lowObat.forEach(o => {
+                    warnBox.innerHTML += `
+                        <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); padding: 8px 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;">
+                            <div><b>${o.nama}</b><br><span style="color:var(--text-secondary);">Sisa: ${o.stok} ${o.satuan}</span></div>
+                            <span style="color: var(--accent-amber); font-weight:800;">LOW</span>
+                        </div>
+                    `;
+                });
+            }
+        }
 
-    // Fungsi Cetak Surat Sesuai Template Teks Pilihan Anda
-    function cetakSurat(id) {
-      const r = rekamMedis.find(item => item.id === id);
-      if (!r) return;
+        // Rekam Medis Table & Filter Logic
+        function renderRMTable(data = null) {
+            const tbody = document.getElementById('table-rm-body');
+            tbody.innerHTML = '';
+            const targetData = data || listRM;
 
-      const formatSurat = `
-================================================================================
-                        POS KESEHATAN PESANTREN (POSKESTREN)
-                              PONDOK PESANTREN [NAMA PESANTREN]
-                  Alamat: [Alamat Lengkap Pesantren, Kota/Kabupaten]
-                  Telp/WA: [Nomor Telepon/HP Pengurus/Poskestren]
-================================================================================
+            targetData.forEach(r => {
+                const resepBadges = r.resep ? r.resep.map(o => `<span style="font-size:0.7rem; background:rgba(255,255,255,0.08); padding:2px 4px; border-radius:4px; margin-right:2px;">${o.nama} (${o.qty})</span>`).join('') : '-';
 
-                      SURAT KETERANGAN SAKIT & IZIN PULANG
-                           Nomor: ${r.id}/POSKESTREN/X/2026
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${r.tanggal}</td>
+                        <td><b>${r.nama}</b><br><span style="font-size:0.7rem; color:var(--text-secondary);">${r.nis}</span></td>
+                        <td>${r.kamar}</td>
+                        <td>${r.keluhan}<br><small style="color:var(--text-secondary);">Suhu: ${r.suhu || '-'}°C | TD: ${r.td || '-'}</small></td>
+                        <td><b>${r.diagnosis}</b></td>
+                        <td>${resepBadges}</td>
+                        <td style="text-align:center;">
+                            <button onclick="editRM('${r.id}')" class="btn-secondary" style="padding:4px 8px;"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="printSurat('${r.id}')" class="btn-primary" style="padding:4px 8px;"><i class="fa-solid fa-print"></i></button>
+                            <button onclick="deleteRM('${r.id}')" class="btn-secondary" style="padding:4px 8px; color:var(--accent-rose);"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
 
-Yang bertanda tangan di bawah ini, Petugas Poskestren [Nama Pesantren], menerangkan bahwa:
+        function applyRMFilters() {
+            const search = document.getElementById('filter-search-rm').value.toLowerCase();
+            const kamar = document.getElementById('filter-kamar-rm').value.toLowerCase();
+            const start = document.getElementById('filter-start-rm').value;
+            const end = document.getElementById('filter-end-rm').value;
 
-Nama Santri         : ${r.nama}
-NIS / ID Santri     : ${r.nis}
-Kamar / Perguruan   : ${r.kamar}
-Alamat Orang Tua/Wali: ${r.alamatOrtu}
+            const filtered = listRM.filter(r => {
+                const matchSearch = r.nama.toLowerCase().includes(search) || r.nis.toLowerCase().includes(search) || r.diagnosis.toLowerCase().includes(search);
+                const matchKamar = !kamar || r.kamar.toLowerCase().includes(kamar);
+                let matchDate = true;
+                if (start && r.tanggal < start) matchDate = false;
+                if (end && r.tanggal > end) matchDate = false;
 
-Berdasarkan hasil pemeriksaan kesehatan di Poskestren pada:
-Hari, Tanggal       : ${r.tanggal}
-Keluhan / Diagnosis : ${r.diagnosis}
+                return matchSearch && matchKamar && matchDate;
+            });
 
-Dengan ini menyatakan bahwa santri tersebut di atas dalam kondisi SAKIT dan MEMERLUKAN ISTIRAHAT DI RUMAH serta pemeriksaan medis lebih lanjut. 
+            renderRMTable(filtered);
+        }
 
-Diberikan izin pulang sementara terhitung mulai:
-Tanggal Keluar      : ${r.tglKeluar}
-Tanggal Kembali     : ${r.tglKembali}
+        // Inventaris Obat Table Logic
+        function renderObatTable() {
+            const tbody = document.getElementById('table-obat-body');
+            const search = document.getElementById('search-obat').value.toLowerCase();
+            tbody.innerHTML = '';
 
-Catatan / Imbauan Medis:
-1. Santri diimbau untuk memeriksakan kembali kondisinya ke Fasilitas Kesehatan (Klinik/Puskesmas/Rumah Sakit/Dokter) terdekat selama di rumah.
-2. Membawa kembali Surat Keterangan Berobat dari Dokter/Faskes saat kembali ke pesantren sebagai bukti pemeriksaan ulang.
-3. Apabila hingga batas waktu tanggal kembali kondisi santri belum membaik, Orang Tua/Wali wajib mengonfirmasi dan memperpanjang izin ke Pengurus Pesantren.
+            const filtered = listObat.filter(o => o.nama.toLowerCase().includes(search) || o.kategori.toLowerCase().includes(search));
 
-Demikian surat keterangan izin ini dibuat agar dapat dipergunakan sebagaimana mestinya. Atas perhatian dan kerja samanya, kami ucapkan terima kasih.
+            filtered.forEach(o => {
+                const isLow = o.stok <= o.minStok;
+                tbody.innerHTML += `
+                    <tr>
+                        <td><b>${o.nama}</b></td>
+                        <td>${o.kategori}</td>
+                        <td><b style="color:${isLow ? 'var(--accent-amber)' : 'inherit'}">${o.stok}</b></td>
+                        <td>${o.satuan}</td>
+                        <td>${o.minStok}</td>
+                        <td>${o.exp || '-'}</td>
+                        <td><span style="background:${isLow ? 'rgba(245,158,11,0.2)' : 'rgba(16,185,129,0.2)'}; color:${isLow ? 'var(--accent-amber)' : 'var(--accent-emerald)'}; padding:2px 8px; border-radius:12px; font-weight:700; font-size:0.75rem;">${isLow ? 'Low Stok' : 'Aman'}</span></td>
+                        <td style="text-align:center;">
+                            <button onclick="editObat('${o.id}')" class="btn-secondary" style="padding:4px 8px;"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="deleteObat('${o.id}')" class="btn-secondary" style="padding:4px 8px; color:var(--accent-rose);"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
 
+        // Dynamic Prescription Form Multi-Rows
+        function addResepRow(selectedObatId = '', qty = 1) {
+            const container = document.getElementById('resep-container');
+            const rowId = 'row-' + Date.now() + Math.random().toString(36).substr(2, 4);
 
-[Kota Pesantren], ${r.tanggal}
+            let options = '<option value="">-- Pilih Obat --</option>';
+            listObat.forEach(o => {
+                const selected = o.id === selectedObatId ? 'selected' : '';
+                options += `<option value="${o.id}" ${selected}>${o.nama} (Sisa: ${o.stok})</option>`;
+            });
 
-    Petugas Kesehatan Poskestren,                        
-                                            
+            const html = `
+                <div id="${rowId}" style="display:flex; gap:6px; align-items:center;">
+                    <select class="resep-select" style="flex-grow:1;">${options}</select>
+                    <input type="number" class="resep-qty" value="${qty}" min="1" style="width:70px;" placeholder="Qty">
+                    <button type="button" onclick="removeResepRow('${rowId}')" class="btn-secondary" style="color:var(--accent-rose); padding:6px;"><i class="fa-solid fa-minus"></i></button>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', html);
+        }
 
+        function removeResepRow(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
 
+        // Save & Auto Deduct Stock - Rekam Medis
+        function saveRekamMedis(e) {
+            e.preventDefault();
+            const id = document.getElementById('rm-id').value;
+            const nama = document.getElementById('rm-nama').value;
+            const nis = document.getElementById('rm-nis').value;
+            const kamar = document.getElementById('rm-kamar').value;
+            const tanggal = document.getElementById('rm-tanggal').value;
+            const keluhan = document.getElementById('rm-keluhan').value;
+            const td = document.getElementById('rm-td').value;
+            const suhu = document.getElementById('rm-suhu').value;
+            const bb = document.getElementById('rm-bb').value;
+            const tb = document.getElementById('rm-tb').value;
+            const diagnosis = document.getElementById('rm-diagnosis').value;
+            const petugas = document.getElementById('rm-petugas').value;
+            const lamaIzin = document.getElementById('rm-lama-izin').value;
 
+            // Collect Prescription Data
+            const rows = document.querySelectorAll('#resep-container > div');
+            const resepList = [];
 
-  ( ${r.petugas} )                                   
-`;
+            for (let r of rows) {
+                const obatId = r.querySelector('.resep-select').value;
+                const qty = parseInt(r.querySelector('.resep-qty').value) || 1;
 
-      document.getElementById('print-area').innerText = formatSurat;
-      window.print();
-    }
+                if (obatId) {
+                    const obatItem = listObat.find(o => o.id === obatId);
+                    if (obatItem) {
+                        if (obatItem.stok < qty) {
+                            showToast(`Stok ${obatItem.nama} kurang! Sisa: ${obatItem.stok}`, 'error');
+                            return;
+                        }
+                        resepList.push({ obatId: obatItem.id, nama: obatItem.nama, qty });
+                    }
+                }
+            }
 
-    // Export Data Rekam Medis ke Excel
-    function exportData() {
-      const ws = XLSX.utils.json_to_sheet(rekamMedis);
-      const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Rekam Medis");
-      XLSX.writeFile(wb, "Data_Rekam_Medis_Poskestren.xlsx");
-    }
-  </script>
+            // Deduct Stock
+            resepList.forEach(item => {
+                const target = listObat.find(o => o.id === item.obatId);
+                if (target) target.stok -= item.qty;
+            });
+
+            if (id) {
+                const idx = listRM.findIndex(r => r.id === id);
+                listRM[idx] = { id, nama, nis, kamar, tanggal, keluhan, td, suhu, bb, tb, diagnosis, resep: resepList, petugas, lamaIzin };
+                showToast('Rekam medis berhasil diperbarui!', 'success');
+            } else {
+                const newId = 'RM-' + Date.now();
+                listRM.push({ id: newId, nama, nis, kamar, tanggal, keluhan, td, suhu, bb, tb, diagnosis, resep: resepList, petugas, lamaIzin });
+                showToast('Rekam medis baru disimpan & stok terpotong!', 'success');
+            }
+
+            saveData();
+            closeModal('modal-rekam-medis');
+            renderRMTable();
+            renderObatTable();
+            renderDashboard();
+        }
+
+        function editRM(id) {
+            const r = listRM.find(item => item.id === id);
+            if (!r) return;
+
+            document.getElementById('rm-id').value = r.id;
+            document.getElementById('rm-nama').value = r.nama;
+            document.getElementById('rm-nis').value = r.nis;
+            document.getElementById('rm-kamar').value = r.kamar;
+            document.getElementById('rm-tanggal').value = r.tanggal;
+            document.getElementById('rm-keluhan').value = r.keluhan;
+            document.getElementById('rm-td').value = r.td || '';
+            document.getElementById('rm-suhu').value = r.suhu || '';
+            document.getElementById('rm-bb').value = r.bb || '';
+            document.getElementById('rm-tb').value = r.tb || '';
+            document.getElementById('rm-diagnosis').value = r.diagnosis;
+            document.getElementById('rm-petugas').value = r.petugas;
+            document.getElementById('rm-lama-izin').value = r.lamaIzin || '0';
+
+            const container = document.getElementById('resep-container');
+            container.innerHTML = '';
+            if (r.resep) r.resep.forEach(item => addResepRow(item.obatId, item.qty));
+
+            openModal('modal-rekam-medis');
+        }
+
+        function deleteRM(id) {
+            if (confirm('Hapus rekam medis ini?')) {
+                listRM = listRM.filter(r => r.id !== id);
+                saveData();
+                renderRMTable();
+                renderDashboard();
+                showToast('Data dihapus', 'info');
+            }
+        }
+
+        // Save & Manage Obat
+        function saveObat(e) {
+            e.preventDefault();
+            const id = document.getElementById('obat-id').value;
+            const nama = document.getElementById('obat-nama').value;
+            const kategori = document.getElementById('obat-kategori').value;
+            const satuan = document.getElementById('obat-satuan').value;
+            const stok = parseInt(document.getElementById('obat-stok').value) || 0;
+            const minStok = parseInt(document.getElementById('obat-min-stok').value) || 5;
+            const exp = document.getElementById('obat-exp').value;
+
+            if (id) {
+                const idx = listObat.findIndex(o => o.id === id);
+                listObat[idx] = { id, nama, kategori, satuan, stok, minStok, exp };
+                showToast('Data obat diperbarui!', 'success');
+            } else {
+                const newId = 'OBT-' + Date.now();
+                listObat.push({ id: newId, nama, kategori, satuan, stok, minStok, exp });
+                showToast('Obat baru ditambahkan!', 'success');
+            }
+
+            saveData();
+            closeModal('modal-obat');
+            renderObatTable();
+            renderDashboard();
+        }
+
+        function editObat(id) {
+            const o = listObat.find(item => item.id === id);
+            if (!o) return;
+
+            document.getElementById('obat-id').value = o.id;
+            document.getElementById('obat-nama').value = o.nama;
+            document.getElementById('obat-kategori').value = o.kategori;
+            document.getElementById('obat-satuan').value = o.satuan;
+            document.getElementById('obat-stok').value = o.stok;
+            document.getElementById('obat-min-stok').value = o.minStok;
+            document.getElementById('obat-exp').value = o.exp || '';
+
+            openModal('modal-obat');
+        }
+
+        function deleteObat(id) {
+            if (confirm('Hapus obat dari inventaris?')) {
+                listObat = listObat.filter(o => o.id !== id);
+                saveData();
+                renderObatTable();
+                renderDashboard();
+                showToast('Obat dihapus', 'info');
+            }
+        }
+
+        // Printable Surat Izin Sakit
+        function renderSuratTable() {
+            const tbody = document.getElementById('table-surat-body');
+            tbody.innerHTML = '';
+
+            listRM.forEach(r => {
+                let reko = 'Tanpa Izin';
+                if (r.lamaIzin === 'pulang') reko = 'Rekomendasi Pulang';
+                else if (parseInt(r.lamaIzin) > 0) reko = `Izin ${r.lamaIzin} Hari`;
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${r.tanggal}</td>
+                        <td><b>${r.nama}</b></td>
+                        <td>${r.kamar}</td>
+                        <td>${r.diagnosis}</td>
+                        <td><span style="font-weight:700; color:var(--accent-emerald);">${reko}</span></td>
+                        <td style="text-align:center;"><button onclick="printSurat('${r.id}')" class="btn-primary" style="padding:4px 8px;"><i class="fa-solid fa-print"></i> Cetak</button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function printSurat(rmId) {
+            const r = listRM.find(item => item.id === rmId);
+            if (!r) return;
+
+            document.getElementById('print-no-surat').innerText = `POSK/2026/${r.id.replace('RM-','')}`;
+            document.getElementById('print-nama').innerText = r.nama;
+            document.getElementById('print-nis').innerText = r.nis;
+            document.getElementById('print-kamar').innerText = r.kamar;
+            document.getElementById('print-diagnosis').innerText = r.diagnosis;
+            document.getElementById('print-petugas').innerText = r.petugas;
+
+            let rekoText = "ISTIRAHAT DI KAMAR ASRAMA SELAMA 1 HARI";
+            if (r.lamaIzin === 'pulang') rekoText = "REKOMENDASI PULANG KE RUMAH / RAWAT LANJUT";
+            else if (parseInt(r.lamaIzin) > 0) rekoText = `DIBERIKAN IZIN ISTIRAHAT SELAMA ${r.lamaIzin} HARI`;
+
+            document.getElementById('print-rekomendasi').innerText = rekoText;
+            window.print();
+        }
+
+        // Export / Import JSON & Excel
+        function exportExcel() {
+            const wb = XLSX.utils.book_new();
+
+            const wsRM = XLSX.utils.json_to_sheet(listRM.map(r => ({
+                ID: r.id, Tanggal: r.tanggal, Nama: r.nama, NIS: r.nis, Kamar: r.kamar, Keluhan: r.keluhan, Diagnosis: r.diagnosis, Petugas: r.petugas
+            })));
+            XLSX.utils.book_append_sheet(wb, wsRM, "Rekam Medis");
+
+            const wsObat = XLSX.utils.json_to_sheet(listObat);
+            XLSX.utils.book_append_sheet(wb, wsObat, "Stok Obat");
+
+            XLSX.writeFile(wb, `POSKESTREN_Data_${new Date().toISOString().split('T')[0]}.xlsx`);
+            showToast('Excel Berhasil Diunduh!', 'success');
+        }
+
+        function exportJSON() {
+            const data = { listRM, listObat };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `POSKESTREN_Backup_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            showToast('Backup JSON Berhasil!', 'success');
+        }
+
+        function importJSON() {
+            const file = document.getElementById('import-file').files[0];
+            if (!file) return showToast('Pilih file JSON dulu!', 'error');
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.listRM && data.listObat) {
+                        listRM = data.listRM;
+                        listObat = data.listObat;
+                        saveData();
+                        renderDashboard();
+                        closeModal('modal-export-import');
+                        showToast('Restore Data Berhasil!', 'success');
+                    }
+                } catch (err) {
+                    showToast('File JSON Tidak Valid!', 'error');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Helper Utilities
+        function updateBadges() {
+            const lowCount = listObat.filter(o => o.stok <= o.minStok).length;
+            const badge = document.getElementById('low-stock-badge');
+            if (lowCount > 0) {
+                badge.style.display = 'flex';
+                document.getElementById('low-stock-count').innerText = lowCount;
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function openModal(id) {
+            if (id === 'modal-rekam-medis' && !document.getElementById('rm-id').value) {
+                document.getElementById('form-rm').reset();
+                document.getElementById('rm-id').value = '';
+                document.getElementById('rm-tanggal').value = new Date().toISOString().split('T')[0];
+                document.getElementById('resep-container').innerHTML = '';
+                addResepRow();
+            }
+            if (id === 'modal-obat' && !document.getElementById('obat-id').value) {
+                document.getElementById('form-obat').reset();
+                document.getElementById('obat-id').value = '';
+            }
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+            if (id === 'modal-rekam-medis') document.getElementById('rm-id').value = '';
+            if (id === 'modal-obat') document.getElementById('obat-id').value = '';
+        }
+
+        function showToast(msg, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `<i class="fa-solid fa-circle-info" style="color:var(--accent-emerald);"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+    </script>
 </body>
 </html>
