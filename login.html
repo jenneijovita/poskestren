@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POSKESTREN - Login System</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: #061412;
+            color: #e2e8f0;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        /* Interactive Particle Canvas */
+        #particleCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Ambient Glowing Background Elements (Aurora Glow) */
+        .ambient-glow-1 {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, rgba(6, 20, 18, 0) 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: 2;
+            pointer-events: none;
+            animation: pulseGlow 8s infinite alternate ease-in-out;
+        }
+
+        .ambient-glow-2 {
+            position: absolute;
+            bottom: -15%;
+            right: -10%;
+            width: 55vw;
+            height: 55vw;
+            background: radial-gradient(circle, rgba(5, 150, 105, 0.22) 0%, rgba(6, 20, 18, 0) 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 2;
+            pointer-events: none;
+            animation: pulseGlow 10s infinite alternate-reverse ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(0.9) translate(0, 0); opacity: 0.7; }
+            100% { transform: scale(1.15) translate(20px, -20px); opacity: 1; }
+        }
+
+        /* Sleek Glassmorphism Card Surface */
+        .glass-card {
+            background: rgba(13, 40, 35, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5),
+                        0 0 25px rgba(16, 185, 129, 0.15),
+                        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 10;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(52, 211, 153, 0.4);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6),
+                        0 0 35px rgba(16, 185, 129, 0.25);
+        }
+
+        /* Custom Input Glow & Styling */
+        .input-group-focus:focus-within {
+            border-color: #34d399 !important;
+            box-shadow: 0 0 18px rgba(52, 211, 153, 0.35) !important;
+            background-color: rgba(16, 45, 40, 0.85) !important;
+        }
+
+        .custom-input {
+            background-color: rgba(9, 28, 24, 0.75);
+            border: 1px solid rgba(52, 211, 153, 0.25);
+            color: #ecfdf5;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .custom-input::placeholder {
+            color: #4ade80;
+            opacity: 0.4;
+        }
+
+        /* Glowing Emerald Gradient Button */
+        .btn-emerald {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border: 1px solid rgba(52, 211, 153, 0.5);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.35);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-emerald:hover {
+            background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+            box-shadow: 0 6px 28px rgba(52, 211, 153, 0.55);
+            transform: translateY(-2px);
+        }
+
+        .btn-emerald:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Ripple Effect on Button */
+        .ripple {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.35);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple-anim 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-anim {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Alert Animation */
+        .alert-pop {
+            animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: translateY(-10px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+    <!-- Canvas Animation Background -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Ambient Glowing Lights -->
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+
+    <!-- Main Login Container -->
+    <div class="w-full max-w-md p-6 sm:p-8 m-4 rounded-3xl glass-card">
+        
+        <!-- Header & Logo Section -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl bg-gradient-to-br from-emerald-400/20 to-emerald-900/40 border border-emerald-400/40 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+                <i class="fa-solid me-0 fa-heart-pulse text-3xl text-emerald-400"></i>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-1">
+                POSKESTREN
+            </h1>
+            <p class="text-xs sm:text-sm text-emerald-300/70 font-medium">
+                Pos Kesehatan Pesantren Integrasi
+            </p>
+        </div>
+
+        <!-- Alert Notification Box -->
+        <div id="alertBox" class="hidden mb-5 p-3.5 rounded-xl border border-red-500/40 bg-red-950/40 text-red-300 text-xs sm:text-sm flex items-center space-x-2.5 alert-pop">
+            <i class="fa-solid fa-circle-exclamation text-red-400 text-base flex-shrink-0"></i>
+            <span id="alertMessage" class="font-medium">Username atau Password salah!</span>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" class="space-y-5" onsubmit="handleLogin(event)">
+            
+            <!-- Username Input -->
+            <div>
+                <label for="username" class="block text-xs font-semibold uppercase tracking-wider text-emerald-300/80 mb-2">
+                    Username
+                </label>
+                <div class="relative flex items-center input-group-focus rounded-xl transition-all">
+                    <span class="absolute left-4 text-emerald-400/60 text-sm">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        required 
+                        placeholder="Masukkan username..." 
+                        class="w-full py-3.5 pl-11 pr-4 rounded-xl text-sm custom-input focus:outline-none"
+                    />
+                </div>
+            </div>
+
+            <!-- Password Input -->
+            <div>
+                <label for="password" class="block text-xs font-semibold uppercase tracking-wider text-emerald-300/80 mb-2">
+                    Password
+                </label>
+                <div class="relative flex items-center input-group-focus rounded-xl transition-all">
+                    <span class="absolute left-4 text-emerald-400/60 text-sm">
+                        <i class="fa-solid fa-lock"></i>
+                    </span>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        required 
+                        placeholder="Masukkan password..." 
+                        class="w-full py-3.5 pl-11 pr-12 rounded-xl text-sm custom-input focus:outline-none"
+                    />
+                    <button 
+                        type="button" 
+                        onclick="togglePasswordVisibility()" 
+                        class="absolute right-4 text-emerald-400/60 hover:text-emerald-300 transition-colors focus:outline-none"
+                        title="Tampilkan / Sembunyikan Password"
+                    >
+                        <i id="eyeIcon" class="fa-solid fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button 
+                type="submit" 
+                id="submitBtn"
+                class="w-full py-3.5 rounded-xl font-semibold text-white text-sm btn-emerald uppercase tracking-wider mt-2 flex items-center justify-center space-x-2"
+            >
+                <span>Masuk Sekarang</span>
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+        </form>
+
+        <!-- Quick Demo Hint -->
+        <div class="mt-6 pt-4 border-t border-emerald-500/10 text-center text-[11px] text-emerald-300/50 space-y-1">
+            <p>Demo Akses:</p>
+            <p><span class="text-emerald-400 font-mono">poskestren</span> / <span class="text-emerald-400 font-mono">poskestren</span></p>
+            <p><span class="text-emerald-400 font-mono">pondok putri</span> / <span class="text-emerald-400 font-mono">pondok putri</span></p>
+        </div>
+
+    </div>
+
+    <!-- JavaScript Logic Section -->
+    <script>
+        /* ===================================================
+           1. INTERACTIVE PARTICLE CANVAS NETWORK
+           =================================================== */
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = Math.floor((width * height) / 12000); // Responsive density
+        const maxDistance = 120; // Connecting distance
+
+        const mouse = {
+            x: null,
+            y: null,
+            radius: 150
+        };
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        window.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 1.2;
+                this.vy = (Math.random() - 0.5) * 1.2;
+                this.radius = Math.random() * 2 + 1;
+                this.color = '#34d399';
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#10b981';
+                ctx.fill();
+                ctx.shadowBlur = 0; // Reset shadow for performance
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Wall collisions
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                // Mouse interaction / push away subtle effect
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < mouse.radius) {
+                        const angle = Math.atan2(dy, dx);
+                        const force = (mouse.radius - dist) / mouse.radius;
+                        this.x -= Math.cos(angle) * force * 2;
+                        this.y -= Math.sin(angle) * force * 2;
+                    }
+                }
+            }
+        }
+
+        function initParticles() {
+            particles.length = 0;
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function connectParticles() {
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a + 1; b < particles.length; b++) {
+                    const dx = particles[a].x - particles[b].x;
+                    const dy = particles[a].y - particles[b].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < maxDistance) {
+                        const opacity = 1 - (dist / maxDistance);
+                        ctx.strokeStyle = `rgba(52, 211, 153, ${opacity * 0.25})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            connectParticles();
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+
+
+        /* ===================================================
+           2. PASSWORD VISIBILITY TOGGLE LOGIC
+           =================================================== */
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+
+
+        /* ===================================================
+           3. AUTHENTICATION & CREDENTIALS LOGIC
+           =================================================== */
+        const VALID_CREDENTIALS = [
+            { username: 'poskestren', password: 'poskestren' },
+            { username: 'pondok putri', password: 'pondok putri' }
+        ];
+
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const usernameInput = document.getElementById('username').value.trim();
+            const passwordInput = document.getElementById('password').value.trim();
+            const alertBox = document.getElementById('alertBox');
+            const alertMessage = document.getElementById('alertMessage');
+
+            // Find matching credential
+            const userMatch = VALID_CREDENTIALS.find(
+                cred => cred.username === usernameInput && cred.password === passwordInput
+            );
+
+            if (userMatch) {
+                // Success Login
+                alertBox.classList.add('hidden');
+                
+                // Save session state
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('currentUser', userMatch.username);
+
+                // Feedback UI on Button
+                const btn = document.getElementById('submitBtn');
+                btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Mengarahkan...</span>`;
+                btn.style.pointerEvents = 'none';
+
+                // Redirect to index.html
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 800);
+
+            } else {
+                // Invalid Credentials
+                alertMessage.textContent = 'Username atau password tidak valid!';
+                alertBox.classList.remove('hidden');
+
+                // Shake animation trigger on card
+                const card = document.querySelector('.glass-card');
+                card.style.animation = 'shake 0.4s ease-in-out';
+                setTimeout(() => { card.style.animation = ''; }, 400);
+            }
+        }
+
+        // Keyframe CSS inject for shake effect
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                20%, 60% { transform: translateX(-8px); }
+                40%, 80% { transform: translateX(8px); }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+
+
+        /* ===================================================
+           4. RIPPLE CLICK ANIMATION ON BUTTON
+           =================================================== */
+        const button = document.getElementById('submitBtn');
+        button.addEventListener('click', function (e) {
+            const rect = button.getBoundingClientRect();
+            const circle = document.createElement('span');
+            const diameter = Math.max(rect.width, rect.height);
+            const radius = diameter / 2;
+
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${e.clientX - rect.left - radius}px`;
+            circle.style.top = `${e.clientY - rect.top - radius}px`;
+            circle.classList.add('ripple');
+
+            const ripple = button.getElementsByClassName('ripple')[0];
+            if (ripple) {
+                ripple.remove();
+            }
+
+            button.appendChild(circle);
+        });
+    </script>
+</body>
+</html>
