@@ -4,14 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POSKESTREN - Login System</title>
+    
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- Font Awesome Icons CDN (Penting agar ikon muncul) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- Google Fonts Inter & Plus Jakarta Sans -->
-    <link href="style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-   
+    <!-- File CSS Utama Anda -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="flex items-center justify-center min-h-screen">
 
@@ -28,7 +34,7 @@
         <!-- Header & Logo Section -->
         <div class="text-center mb-8">
             <div class="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl bg-gradient-to-br from-emerald-400/20 to-emerald-900/40 border border-emerald-400/40 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-                <i class="fa-solid me-0 fa-heart-pulse text-3xl text-emerald-400"></i>
+                <i class="fa-solid fa-heart-pulse text-3xl text-emerald-400"></i>
             </div>
             <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-1">
                 POSKESTREN
@@ -115,9 +121,7 @@
 
     <!-- JavaScript Logic Section -->
     <script>
-        /* ===================================================
-           1. INTERACTIVE PARTICLE CANVAS NETWORK
-           =================================================== */
+        /* 1. INTERACTIVE PARTICLE CANVAS NETWORK */
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -125,14 +129,10 @@
         let height = canvas.height = window.innerHeight;
 
         const particles = [];
-        const particleCount = Math.floor((width * height) / 12000); // Responsive density
-        const maxDistance = 120; // Connecting distance
+        const particleCount = Math.floor((width * height) / 12000);
+        const maxDistance = 120;
 
-        const mouse = {
-            x: null,
-            y: null,
-            radius: 150
-        };
+        const mouse = { x: null, y: null, radius: 150 };
 
         window.addEventListener('resize', () => {
             width = canvas.width = window.innerWidth;
@@ -167,18 +167,16 @@
                 ctx.shadowBlur = 10;
                 ctx.shadowColor = '#10b981';
                 ctx.fill();
-                ctx.shadowBlur = 0; // Reset shadow for performance
+                ctx.shadowBlur = 0;
             }
 
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
 
-                // Wall collisions
                 if (this.x < 0 || this.x > width) this.vx *= -1;
                 if (this.y < 0 || this.y > height) this.vy *= -1;
 
-                // Mouse interaction / push away subtle effect
                 if (mouse.x !== null && mouse.y !== null) {
                     const dx = mouse.x - this.x;
                     const dy = mouse.y - this.y;
@@ -223,12 +221,10 @@
 
         function animate() {
             ctx.clearRect(0, 0, width, height);
-
             particles.forEach(particle => {
                 particle.update();
                 particle.draw();
             });
-
             connectParticles();
             requestAnimationFrame(animate);
         }
@@ -236,10 +232,7 @@
         initParticles();
         animate();
 
-
-        /* ===================================================
-           2. PASSWORD VISIBILITY TOGGLE LOGIC
-           =================================================== */
+        /* 2. PASSWORD VISIBILITY TOGGLE LOGIC */
         function togglePasswordVisibility() {
             const passwordInput = document.getElementById('password');
             const eyeIcon = document.getElementById('eyeIcon');
@@ -255,10 +248,7 @@
             }
         }
 
-
-        /* ===================================================
-           3. AUTHENTICATION & CREDENTIALS LOGIC
-           =================================================== */
+        /* 3. AUTHENTICATION LOGIC */
         const VALID_CREDENTIALS = [
             { username: 'poskestren', password: 'poskestren' },
             { username: 'pondok putri', password: 'pondok putri' }
@@ -267,40 +257,32 @@
         function handleLogin(event) {
             event.preventDefault();
 
-            const usernameInput = document.getElementById('username').value.trim();
+            const usernameInput = document.getElementById('username').value.trim().toLowerCase();
             const passwordInput = document.getElementById('password').value.trim();
             const alertBox = document.getElementById('alertBox');
             const alertMessage = document.getElementById('alertMessage');
 
-            // Find matching credential
             const userMatch = VALID_CREDENTIALS.find(
                 cred => cred.username === usernameInput && cred.password === passwordInput
             );
 
             if (userMatch) {
-                // Success Login
                 alertBox.classList.add('hidden');
-                
-                // Save session state
                 sessionStorage.setItem('isLoggedIn', 'true');
                 sessionStorage.setItem('currentUser', userMatch.username);
 
-                // Feedback UI on Button
                 const btn = document.getElementById('submitBtn');
                 btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Mengarahkan...</span>`;
                 btn.style.pointerEvents = 'none';
 
-                // Redirect to index.html
                 setTimeout(() => {
                     window.location.href = 'index.html';
                 }, 800);
 
             } else {
-                // Invalid Credentials
                 alertMessage.textContent = 'Username atau password tidak valid!';
                 alertBox.classList.remove('hidden');
 
-                // Shake animation trigger on card
                 const card = document.querySelector('.glass-card');
                 card.style.animation = 'shake 0.4s ease-in-out';
                 setTimeout(() => { card.style.animation = ''; }, 400);
@@ -318,10 +300,7 @@
         `;
         document.head.appendChild(styleSheet);
 
-
-        /* ===================================================
-           4. RIPPLE CLICK ANIMATION ON BUTTON
-           =================================================== */
+        /* 4. RIPPLE CLICK ANIMATION ON BUTTON */
         const button = document.getElementById('submitBtn');
         button.addEventListener('click', function (e) {
             const rect = button.getBoundingClientRect();
