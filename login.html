@@ -1,68 +1,346 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - POSKESTREN</title>
-  <!-- Menghubungkan file CSS eksternal -->
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POSKESTREN - Login System</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <div class="login-card">
-    <div class="login-header">
-      <div class="login-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-        </svg>
-      </div>
-      <h2>Login POSKESTREN</h2>
-      <p>Silakan masuk untuk mengakses dashboard</p>
+   
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+    <!-- Canvas Animation Background -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Ambient Glowing Lights -->
+    <div class="ambient-glow-1"></div>
+    <div class="ambient-glow-2"></div>
+
+    <!-- Main Login Container -->
+    <div class="w-full max-w-md p-6 sm:p-8 m-4 rounded-3xl glass-card">
+        
+        <!-- Header & Logo Section -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl bg-gradient-to-br from-emerald-400/20 to-emerald-900/40 border border-emerald-400/40 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+                <i class="fa-solid me-0 fa-heart-pulse text-3xl text-emerald-400"></i>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white mb-1">
+                POSKESTREN
+            </h1>
+            <p class="text-xs sm:text-sm text-emerald-300/70 font-medium">
+                Pos Kesehatan Pesantren Integrasi
+            </p>
+        </div>
+
+        <!-- Alert Notification Box -->
+        <div id="alertBox" class="hidden mb-5 p-3.5 rounded-xl border border-red-500/40 bg-red-950/40 text-red-300 text-xs sm:text-sm flex items-center space-x-2.5 alert-pop">
+            <i class="fa-solid fa-circle-exclamation text-red-400 text-base flex-shrink-0"></i>
+            <span id="alertMessage" class="font-medium">Username atau Password salah!</span>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" class="space-y-5" onsubmit="handleLogin(event)">
+            
+            <!-- Username Input -->
+            <div>
+                <label for="username" class="block text-xs font-semibold uppercase tracking-wider text-emerald-300/80 mb-2">
+                    Username
+                </label>
+                <div class="relative flex items-center input-group-focus rounded-xl transition-all">
+                    <span class="absolute left-4 text-emerald-400/60 text-sm">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        required 
+                        placeholder="Masukkan username..." 
+                        class="w-full py-3.5 pl-11 pr-4 rounded-xl text-sm custom-input focus:outline-none"
+                    />
+                </div>
+            </div>
+
+            <!-- Password Input -->
+            <div>
+                <label for="password" class="block text-xs font-semibold uppercase tracking-wider text-emerald-300/80 mb-2">
+                    Password
+                </label>
+                <div class="relative flex items-center input-group-focus rounded-xl transition-all">
+                    <span class="absolute left-4 text-emerald-400/60 text-sm">
+                        <i class="fa-solid fa-lock"></i>
+                    </span>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        required 
+                        placeholder="Masukkan password..." 
+                        class="w-full py-3.5 pl-11 pr-12 rounded-xl text-sm custom-input focus:outline-none"
+                    />
+                    <button 
+                        type="button" 
+                        onclick="togglePasswordVisibility()" 
+                        class="absolute right-4 text-emerald-400/60 hover:text-emerald-300 transition-colors focus:outline-none"
+                        title="Tampilkan / Sembunyikan Password"
+                    >
+                        <i id="eyeIcon" class="fa-solid fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button 
+                type="submit" 
+                id="submitBtn"
+                class="w-full py-3.5 rounded-xl font-semibold text-white text-sm btn-emerald uppercase tracking-wider mt-2 flex items-center justify-center space-x-2"
+            >
+                <span>Masuk Sekarang</span>
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+        </form>
+
+        <!-- Quick Demo Hint -->
+        <div class="mt-6 pt-4 border-t border-emerald-500/10 text-center text-[11px] text-emerald-300/50 space-y-1">
+            <p>Demo Akses:</p>
+            <p><span class="text-emerald-400 font-mono">poskestren</span> / <span class="text-emerald-400 font-mono">poskestren</span></p>
+            <p><span class="text-emerald-400 font-mono">pondok putri</span> / <span class="text-emerald-400 font-mono">pondok putri</span></p>
+        </div>
+
     </div>
 
-    <form id="loginForm" onsubmit="processLogin(event)">
-      <div class="input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" placeholder="Masukkan username" required autocomplete="off">
-      </div>
+    <!-- JavaScript Logic Section -->
+    <script>
+        /* ===================================================
+           1. INTERACTIVE PARTICLE CANVAS NETWORK
+           =================================================== */
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
 
-      <div class="input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Masukkan password" required>
-      </div>
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
 
-      <div id="errorMessage" class="error-message">
-        Username atau password salah!
-      </div>
+        const particles = [];
+        const particleCount = Math.floor((width * height) / 12000); // Responsive density
+        const maxDistance = 120; // Connecting distance
 
-      <button type="submit" class="btn-login">Masuk</button>
-    </form>
-  </div>
+        const mouse = {
+            x: null,
+            y: null,
+            radius: 150
+        };
 
-  <script>
-    function processLogin(event) {
-      event.preventDefault();
-      
-      const user = document.getElementById("username").value.trim().toLowerCase();
-      const pass = document.getElementById("password").value.trim();
-      const err = document.getElementById("errorMessage");
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initParticles();
+        });
 
-      // Validasi Username dan Password sesuai permintaan
-      const isValid1 = (user === "poskestren" && pass === "poskestren");
-      const isValid2 = (user === "pondok putri" && pass === "pondok putri");
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
 
-      if (isValid1 || isValid2) {
-        // Simpan sesi bahwa user sudah login
-        sessionStorage.setItem("isLoggedIn", "true");
-        sessionStorage.setItem("currentUser", user);
+        window.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
 
-        // Alihkan (Redirect) ke halaman dashboard utama Anda
-        window.location.href = "index.html"; 
-      } else {
-        err.style.display = "block";
-      }
-    }
-  </script>
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 1.2;
+                this.vy = (Math.random() - 0.5) * 1.2;
+                this.radius = Math.random() * 2 + 1;
+                this.color = '#34d399';
+            }
 
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#10b981';
+                ctx.fill();
+                ctx.shadowBlur = 0; // Reset shadow for performance
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Wall collisions
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                // Mouse interaction / push away subtle effect
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < mouse.radius) {
+                        const angle = Math.atan2(dy, dx);
+                        const force = (mouse.radius - dist) / mouse.radius;
+                        this.x -= Math.cos(angle) * force * 2;
+                        this.y -= Math.sin(angle) * force * 2;
+                    }
+                }
+            }
+        }
+
+        function initParticles() {
+            particles.length = 0;
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function connectParticles() {
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a + 1; b < particles.length; b++) {
+                    const dx = particles[a].x - particles[b].x;
+                    const dy = particles[a].y - particles[b].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < maxDistance) {
+                        const opacity = 1 - (dist / maxDistance);
+                        ctx.strokeStyle = `rgba(52, 211, 153, ${opacity * 0.25})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            connectParticles();
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+
+
+        /* ===================================================
+           2. PASSWORD VISIBILITY TOGGLE LOGIC
+           =================================================== */
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        }
+
+
+        /* ===================================================
+           3. AUTHENTICATION & CREDENTIALS LOGIC
+           =================================================== */
+        const VALID_CREDENTIALS = [
+            { username: 'poskestren', password: 'poskestren' },
+            { username: 'pondok putri', password: 'pondok putri' }
+        ];
+
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const usernameInput = document.getElementById('username').value.trim();
+            const passwordInput = document.getElementById('password').value.trim();
+            const alertBox = document.getElementById('alertBox');
+            const alertMessage = document.getElementById('alertMessage');
+
+            // Find matching credential
+            const userMatch = VALID_CREDENTIALS.find(
+                cred => cred.username === usernameInput && cred.password === passwordInput
+            );
+
+            if (userMatch) {
+                // Success Login
+                alertBox.classList.add('hidden');
+                
+                // Save session state
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('currentUser', userMatch.username);
+
+                // Feedback UI on Button
+                const btn = document.getElementById('submitBtn');
+                btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Mengarahkan...</span>`;
+                btn.style.pointerEvents = 'none';
+
+                // Redirect to index.html
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 800);
+
+            } else {
+                // Invalid Credentials
+                alertMessage.textContent = 'Username atau password tidak valid!';
+                alertBox.classList.remove('hidden');
+
+                // Shake animation trigger on card
+                const card = document.querySelector('.glass-card');
+                card.style.animation = 'shake 0.4s ease-in-out';
+                setTimeout(() => { card.style.animation = ''; }, 400);
+            }
+        }
+
+        // Keyframe CSS inject for shake effect
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                20%, 60% { transform: translateX(-8px); }
+                40%, 80% { transform: translateX(8px); }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+
+
+        /* ===================================================
+           4. RIPPLE CLICK ANIMATION ON BUTTON
+           =================================================== */
+        const button = document.getElementById('submitBtn');
+        button.addEventListener('click', function (e) {
+            const rect = button.getBoundingClientRect();
+            const circle = document.createElement('span');
+            const diameter = Math.max(rect.width, rect.height);
+            const radius = diameter / 2;
+
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${e.clientX - rect.left - radius}px`;
+            circle.style.top = `${e.clientY - rect.top - radius}px`;
+            circle.classList.add('ripple');
+
+            const ripple = button.getElementsByClassName('ripple')[0];
+            if (ripple) {
+                ripple.remove();
+            }
+
+            button.appendChild(circle);
+        });
+    </script>
 </body>
 </html>
