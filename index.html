@@ -1,256 +1,389 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Poskestren - PP. Raudlatul Musthofa</title>
-    
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- External CSS File -->
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>POSKESTREN - Rekam Medis & Inventaris Obat</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        arabic: ['Amiri', 'serif'],
-                    },
-                    colors: {
-                        santri: {
-                            dark: '#04150E',
-                            card: '#082218',
-                            primary: '#0D9488',
-                            emerald: '#059669',
-                            gold: '#D97706',
-                            light: '#ECFDF5'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+  <style>
+    :root {
+      --primary-color: #0f5132;
+      --secondary-color: #198754;
+      --bg-light: #f8f9fa;
+    }
+    body {
+      background-color: var(--bg-light);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .navbar {
+      background-color: var(--primary-color) !important;
+    }
+    .card {
+      border: none;
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+      border-radius: 10px;
+    }
+    .card-header {
+      background-color: #fff;
+      border-bottom: 2px solid var(--bg-light);
+      font-weight: 600;
+    }
+    .badge-out {
+      background-color: #dc3545;
+    }
+    .badge-low {
+      background-color: #ffc107;
+      color: #000;
+    }
+
+    /* Style Khusus untuk Mode Cetak / Surat Izin */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #print-area, #print-area * {
+        visibility: visible;
+      }
+      #print-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 20px;
+        font-family: 'Courier New', Courier, monospace; /* Tampilan mirip format teks ASCII */
+        white-space: pre-wrap;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+    }
+  </style>
 </head>
-<body class="bg-santri-dark text-slate-200 font-sans antialiased relative overflow-x-hidden">
+<body>
 
-    <!-- Ambient Glowing Backgrounds -->
-    <div class="fixed top-0 left-1/4 w-[500px] h-[500px] bg-emerald-600/10 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse"></div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#"><i class="bi bi-hospital me-2"></i>POSKESTREN</a>
+      <span class="navbar-text text-white small">Sistem Rekam Medis & Stok Obat Santri</span>
+    </div>
+  </nav>
 
-    <!-- Navigation Bar -->
-    <header class="fixed top-0 left-0 w-full z-40 glass-nav border-b border-white/10 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="#" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-amber-500 flex items-center justify-center text-white text-xl font-extrabold shadow-lg shadow-emerald-900/40 group-hover:scale-105 transition-transform">
-                    <i class="fa-solid fa-house-medical"></i>
+  <div class="container mb-5">
+    <!-- Alert Notifikasi Obat -->
+    <div id="alert-container"></div>
+
+    <div class="row">
+      <!-- Form Input Rekam Medis -->
+      <div class="col-md-5 mb-4">
+        <div class="card p-3">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span id="form-title"><i class="bi bi-person-plus me-1"></i> Input Rekam Medis</span>
+            <button class="btn btn-sm btn-outline-secondary d-none" id="btn-cancel-edit" onclick="resetFormRM()">Batal</button>
+          </div>
+          <div class="card-body">
+            <form id="form-rm">
+              <input type="hidden" id="rm-id">
+              <div class="mb-2">
+                <label class="form-label small">Nama Lengkap Santri</label>
+                <input type="text" class="form-control form-control-sm" id="rm-nama" required>
+              </div>
+              <div class="row mb-2">
+                <div class="col">
+                  <label class="form-label small">NIS / ID</label>
+                  <input type="text" class="form-control form-control-sm" id="rm-nis" required>
                 </div>
-                <div>
-                    <span class="text-lg font-bold text-white block leading-tight">Poskestren</span>
-                    <span class="text-xs text-emerald-400 font-medium">Dashboard Overview</span>
+                <div class="col">
+                  <label class="form-label small">Kamar / Perguruan</label>
+                  <input type="text" class="form-control form-control-sm" id="rm-kamar" required>
                 </div>
-            </a>
-
-            <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium">
-                <a href="beranda.html" class="text-slate-300 hover:text-emerald-400 transition-colors">Beranda Utama</a>
-                <a href="#stats" class="text-slate-300 hover:text-emerald-400 transition-colors">Statistik</a>
-                <a href="#charts" class="text-slate-300 hover:text-emerald-400 transition-colors">Grafik Kunjungan</a>
-                <a href="https://wa.me/6281234567890" target="_blank" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-semibold shadow-lg shadow-emerald-900/50 hover:scale-105 transition-all flex items-center gap-2">
-                    <i class="fa-brands fa-whatsapp"></i> Petugas Jaga
-                </a>
-            </nav>
+              </div>
+              <div class="mb-2">
+                <label class="form-label small">Alamat Orang Tua/Wali</label>
+                <input type="text" class="form-control form-control-sm" id="rm-alamat-ortu" placeholder="Alamat rumah santri">
+              </div>
+              <div class="mb-2">
+                <label class="form-label small">Hari, Tanggal Pemeriksaan</label>
+                <input type="date" class="form-control form-control-sm" id="rm-tanggal" required>
+              </div>
+              <div class="mb-2">
+                <label class="form-label small">Keluhan / Diagnosis</label>
+                <textarea class="form-control form-control-sm" id="rm-diagnosis" rows="2" required></textarea>
+              </div>
+              <div class="mb-2">
+                <label class="form-label small">Resep Obat</label>
+                <select class="form-select form-select-sm" id="rm-obat">
+                  <option value="">-- Pilih Obat --</option>
+                </select>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <label class="form-label small">Tgl Keluar (Izin)</label>
+                  <input type="date" class="form-control form-control-sm" id="rm-tgl-keluar">
+                </div>
+                <div class="col">
+                  <label class="form-label small">Tgl Kembali</label>
+                  <input type="date" class="form-control form-control-sm" id="rm-tgl-kembali">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label small">Nama Petugas Poskestren</label>
+                <input type="text" class="form-control form-control-sm" id="rm-petugas" required>
+              </div>
+              <button type="submit" class="btn btn-success btn-sm w-100" id="btn-save-rm">Simpan Rekam Medis</button>
+            </form>
+          </div>
         </div>
-    </header>
+      </div>
 
-    <!-- Main Dashboard Container -->
-    <main class="pt-32 pb-20 px-6 max-w-7xl mx-auto space-y-10">
-        
-        <!-- Welcome Banner -->
-        <div class="glass-card p-8 rounded-3xl border border-emerald-500/20 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
-            <div class="space-y-2 text-center md:text-left z-10">
-                <span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Sistem Informasi Kesehatan Pesantren</span>
-                <h1 class="text-3xl font-extrabold text-white">Dashboard Overview Poskestren</h1>
-                <p class="text-slate-400 text-sm max-w-xl">Pantau statistik harian kesehatan santri, rekapitulasi kunjungan berobat, serta grafik analitik secara real-time.</p>
+      <!-- Tabel Rekam Medis & Pencarian -->
+      <div class="col-md-7 mb-4">
+        <div class="card p-3">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-journal-medical me-1"></i> Data Rekam Medis</span>
+            <div>
+              <button class="btn btn-outline-success btn-sm" onclick="exportData()"><i class="bi bi-file-earmark-excel me-1"></i> Export Excel</button>
             </div>
-            <div class="z-10 flex gap-3">
-                <button onclick="refreshData()" class="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm transition-all shadow-lg shadow-emerald-900/40 flex items-center gap-2">
-                    <i class="fa-solid fa-rotate-right" id="refresh-icon"></i> Sinkronkan Data
-                </button>
+          </div>
+          <div class="card-body">
+            <div class="input-group input-group-sm mb-3">
+              <span class="input-group-text"><i class="bi bi-search"></i></span>
+              <input type="text" class="form-control" id="search-rm" placeholder="Cari nama, NIS, atau diagnosis..." onkeyup="renderRM()">
             </div>
+            <div class="table-responsive">
+              <table class="table table-hover table-striped align-middle small">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Tgl</th>
+                    <th>Nama / NIS</th>
+                    <th>Diagnosis</th>
+                    <th>Obat</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-rm"></tbody>
+              </table>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
 
-        <!-- Statistik Kartu (Cards Grid) -->
-        <div id="stats" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="glass-card p-6 rounded-3xl border border-white/5 hover:border-emerald-500/40 transition-all">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl">
-                        <i class="fa-solid fa-user-injured"></i>
-                    </div>
-                    <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full">+12% Hari Ini</span>
-                </div>
-                <h3 class="text-slate-400 text-xs font-semibold uppercase tracking-wider">Total Kunjungan Bulan Ini</h3>
-                <p class="text-3xl font-extrabold text-white mt-1">482 <span class="text-sm font-normal text-slate-400">Santri</span></p>
-            </div>
+  <!-- Area Rahasia Khusus Cetak Surat -->
+  <div id="print-area"></div>
 
-            <div class="glass-card p-6 rounded-3xl border border-white/5 hover:border-emerald-500/40 transition-all">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl">
-                        <i class="fa-solid fa-bed-pulse"></i>
-                    </div>
-                    <span class="text-xs font-bold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-full">Karantina</span>
-                </div>
-                <h3 class="text-slate-400 text-xs font-semibold uppercase tracking-wider">Santri Rawat Inap / Istirahat</h3>
-                <p class="text-3xl font-extrabold text-white mt-1">8 <span class="text-sm font-normal text-slate-400">Orang</span></p>
-            </div>
+  <script>
+    // Inisialisasi Data Storage
+    let rekamMedis = JSON.parse(localStorage.getItem('poskestren_rm')) || [];
+    let stokObat = JSON.parse(localStorage.getItem('poskestren_obat')) || [
+      { id: 1, nama: 'Paracetamol 500mg', stok: 20, minStok: 5 },
+      { id: 2, nama: 'Amoxicillin 500mg', stok: 3, minStok: 5 }
+    ];
 
-            <div class="glass-card p-6 rounded-3xl border border-white/5 hover:border-emerald-500/40 transition-all">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 rounded-2xl bg-teal-500/20 text-teal-400 flex items-center justify-center text-xl">
-                        <i class="fa-solid fa-pills"></i>
-                    </div>
-                    <span class="text-xs font-bold text-teal-400 bg-teal-500/10 px-2.5 py-1 rounded-full">Stok Aman</span>
-                </div>
-                <h3 class="text-slate-400 text-xs font-semibold uppercase tracking-wider">Distribusi Obat & Vitamin</h3>
-                <p class="text-3xl font-extrabold text-white mt-1">1,240 <span class="text-sm font-normal text-slate-400">Pcs</span></p>
-            </div>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('rm-tanggal').valueAsDate = new Date();
+      loadObatOptions();
+      checkNotifObat();
+      renderRM();
+    });
 
-            <div class="glass-card p-6 rounded-3xl border border-white/5 hover:border-emerald-500/40 transition-all">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="w-12 h-12 rounded-2xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-xl">
-                        <i class="fa-solid fa-truck-medical"></i>
-                    </div>
-                    <span class="text-xs font-bold text-rose-400 bg-rose-500/10 px-2.5 py-1 rounded-full">Rujukan</span>
-                </div>
-                <h3 class="text-slate-400 text-xs font-semibold uppercase tracking-wider">Kasus Rujukan RS</h3>
-                <p class="text-3xl font-extrabold text-white mt-1">3 <span class="text-sm font-normal text-slate-400">Kasus</span></p>
-            </div>
-        </div>
+    function saveToStorage() {
+      localStorage.setItem('poskestren_rm', JSON.stringify(rekamMedis));
+      localStorage.setItem('poskestren_obat', JSON.stringify(stokObat));
+    }
 
-        <!-- Grafik Visualisasi Kunjungan -->
-        <div id="charts" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Grafik Utama (Line Chart) -->
-            <div class="glass-card p-6 rounded-3xl border border-white/5 lg:col-span-2 flex flex-col justify-between">
-                <div class="flex items-center justify-between mb-6">
-                    <div>
-                        <h3 class="text-lg font-bold text-white">Grafik Kunjungan Berobat Santri</h3>
-                        <p class="text-slate-400 text-xs">Statistik mingguan kunjungan ke Poskestren</p>
-                    </div>
-                    <span class="px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs font-semibold border border-emerald-500/20">Minggu Ini</span>
-                </div>
-                <div class="relative h-72 w-full">
-                    <canvas id="visitChart"></canvas>
-                </div>
-            </div>
+    function loadObatOptions() {
+      const select = document.getElementById('rm-obat');
+      select.innerHTML = '<option value="">-- Pilih Obat --</option>';
+      stokObat.forEach(o => {
+        select.innerHTML += `<option value="${o.nama}">${o.nama} (Stok: ${o.stok})</option>`;
+      });
+    }
 
-            <!-- Grafik Penyakit Teratas (Doughnut Chart) -->
-            <div class="glass-card p-6 rounded-3xl border border-white/5 flex flex-col justify-between">
-                <div>
-                    <h3 class="text-lg font-bold text-white mb-1">Keluhan Dominan</h3>
-                    <p class="text-slate-400 text-xs mb-6">Persentase jenis penyakit ringan</p>
-                </div>
-                <div class="relative h-60 w-full flex items-center justify-center">
-                    <canvas id="diseaseChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- Inline JavaScript -->
-    <script>
-        // Inisialisasi Grafik Visualisasi Kunjungan (Chart.js)
-        document.addEventListener('DOMContentLoaded', () => {
-            // Line Chart - Kunjungan Mingguan
-            const ctxVisit = document.getElementById('visitChart').getContext('2d');
-            new Chart(ctxVisit, {
-                type: 'line',
-                data: {
-                    labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
-                    datasets: [{
-                        label: 'Jumlah Santri Berobat',
-                        data: [18, 25, 20, 32, 28, 45, 30],
-                        borderColor: '#059669',
-                        backgroundColor: 'rgba(5, 150, 105, 0.1)',
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.4,
-                        pointBackgroundColor: '#0D9488',
-                        pointBorderColor: '#ffffff',
-                        pointBorderWidth: 2,
-                        pointRadius: 5
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    },
-                    scales: {
-                        x: {
-                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                            ticks: { color: '#94a3b8' }
-                        },
-                        y: {
-                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                            ticks: { color: '#94a3b8' }
-                        }
-                    }
-                }
-            });
-
-            // Doughnut Chart - Keluhan / Penyakit Dominan
-            const ctxDisease = document.getElementById('diseaseChart').getContext('2d');
-            new Chart(ctxDisease, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Flu & Demam', 'Scabies (Gudik)', 'Masalah Pencernaan', 'Lainnya'],
-                    datasets: [{
-                        data: [45, 25, 20, 10],
-                        backgroundColor: [
-                            '#059669',
-                            '#D97706',
-                            '#0D9488',
-                            '#64748b'
-                        ],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                color: '#cbd5e1',
-                                font: { size: 11 }
-                            }
-                        }
-                    }
-                }
-            });
-        });
-
-        // Fungsi Interaktif Tombol Sinkronisasi Data
-        function refreshData() {
-            const icon = document.getElementById('refresh-icon');
-            icon.classList.add('fa-spin');
-            
-            setTimeout(() => {
-                icon.classList.remove('fa-spin');
-                alert('Data dashboard Poskestren berhasil disinkronkan secara real-time!');
-            }, 1000);
+    function checkNotifObat() {
+      const container = document.getElementById('alert-container');
+      container.innerHTML = '';
+      stokObat.forEach(o => {
+        if (o.stok <= 0) {
+          container.innerHTML += `<div class="alert alert-danger alert-dismissible fade show p-2 small" role="alert">
+            <strong>Peringatan!</strong> Stok obat <strong>${o.nama}</strong> telah HABIS!
+            <button type="button" class="btn-close p-2" data-bs-dismiss="alert"></button>
+          </div>`;
+        } else if (o.stok <= o.minStok) {
+          container.innerHTML += `<div class="alert alert-warning alert-dismissible fade show p-2 small" role="alert">
+            <strong>Perhatian!</strong> Stok obat <strong>${o.nama}</strong> hampir habis (Sisa: ${o.stok}).
+            <button type="button" class="btn-close p-2" data-bs-dismiss="alert"></button>
+          </div>`;
         }
-    </script>
+      });
+    }
+
+    // Handle Form Submit
+    document.getElementById('form-rm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('rm-id').value;
+      const data = {
+        id: id ? parseInt(id) : Date.now(),
+        nama: document.getElementById('rm-nama').value,
+        nis: document.getElementById('rm-nis').value,
+        kamar: document.getElementById('rm-kamar').value,
+        alamatOrtu: document.getElementById('rm-alamat-ortu').value || '-',
+        tanggal: document.getElementById('rm-tanggal').value,
+        diagnosis: document.getElementById('rm-diagnosis').value,
+        obat: document.getElementById('rm-obat').value || '-',
+        tglKeluar: document.getElementById('rm-tgl-keluar').value || '-',
+        tglKembali: document.getElementById('rm-tgl-kembali').value || '-',
+        petugas: document.getElementById('rm-petugas').value
+      };
+
+      if (id) {
+        const index = rekamMedis.findIndex(r => r.id === parseInt(id));
+        rekamMedis[index] = data;
+      } else {
+        rekamMedis.push(data);
+        // Kurangi stok obat jika ada resep
+        if (data.obat !== '-') {
+          const item = stokObat.find(o => o.nama === data.obat);
+          if (item && item.stok > 0) item.stok -= 1;
+        }
+      }
+
+      saveToStorage();
+      resetFormRM();
+      renderRM();
+      checkNotifObat();
+      loadObatOptions();
+    });
+
+    function renderRM() {
+      const keyword = document.getElementById('search-rm').value.toLowerCase();
+      const tbody = document.getElementById('tbody-rm');
+      tbody.innerHTML = '';
+
+      const filtered = rekamMedis.filter(r => 
+        r.nama.toLowerCase().includes(keyword) || 
+        r.nis.toLowerCase().includes(keyword) || 
+        r.diagnosis.toLowerCase().includes(keyword)
+      );
+
+      filtered.forEach(r => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${r.tanggal}</td>
+            <td><strong>${r.nama}</strong><br><small class="text-muted">${r.nis} (${r.kamar})</small></td>
+            <td>${r.diagnosis}</td>
+            <td>${r.obat}</td>
+            <td>
+              <button class="btn btn-sm btn-info text-white me-1" onclick="cetakSurat(${r.id})" title="Cetak Surat Izin"><i class="bi bi-printer"></i></button>
+              <button class="btn btn-sm btn-warning text-white me-1" onclick="editRM(${r.id})" title="Edit"><i class="bi bi-pencil"></i></button>
+              <button class="btn btn-sm btn-danger" onclick="hapusRM(${r.id})" title="Hapus"><i class="bi bi-trash"></i></button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function resetFormRM() {
+      document.getElementById('form-rm').reset();
+      document.getElementById('rm-id').value = '';
+      document.getElementById('form-title').innerText = 'Input Rekam Medis';
+      document.getElementById('btn-cancel-edit').classList.add('d-none');
+      document.getElementById('rm-tanggal').valueAsDate = new Date();
+    }
+
+    function editRM(id) {
+      const r = rekamMedis.find(item => item.id === id);
+      if (!r) return;
+      document.getElementById('rm-id').value = r.id;
+      document.getElementById('rm-nama').value = r.nama;
+      document.getElementById('rm-nis').value = r.nis;
+      document.getElementById('rm-kamar').value = r.kamar;
+      document.getElementById('rm-alamat-ortu').value = r.alamatOrtu;
+      document.getElementById('rm-tanggal').value = r.tanggal;
+      document.getElementById('rm-diagnosis').value = r.diagnosis;
+      document.getElementById('rm-obat').value = r.obat;
+      document.getElementById('rm-tgl-keluar').value = r.tglKeluar !== '-' ? r.tglKeluar : '';
+      document.getElementById('rm-tgl-kembali').value = r.tglKembali !== '-' ? r.tglKembali : '';
+      document.getElementById('rm-petugas').value = r.petugas;
+
+      document.getElementById('form-title').innerText = 'Edit Rekam Medis';
+      document.getElementById('btn-cancel-edit').classList.remove('d-none');
+    }
+
+    function hapusRM(id) {
+      if (confirm('Apakah Anda yakin ingin menghapus data rekam medis ini?')) {
+        rekamMedis = rekamMedis.filter(r => r.id !== id);
+        saveToStorage();
+        renderRM();
+      }
+    }
+
+    // Fungsi Cetak Surat Sesuai Template Teks Pilihan Anda
+    function cetakSurat(id) {
+      const r = rekamMedis.find(item => item.id === id);
+      if (!r) return;
+
+      const formatSurat = `
+================================================================================
+                        POS KESEHATAN PESANTREN (POSKESTREN)
+                              PONDOK PESANTREN [NAMA PESANTREN]
+                  Alamat: [Alamat Lengkap Pesantren, Kota/Kabupaten]
+                  Telp/WA: [Nomor Telepon/HP Pengurus/Poskestren]
+================================================================================
+
+                      SURAT KETERANGAN SAKIT & IZIN PULANG
+                           Nomor: ${r.id}/POSKESTREN/X/2026
+
+Yang bertanda tangan di bawah ini, Petugas Poskestren [Nama Pesantren], menerangkan bahwa:
+
+Nama Santri         : ${r.nama}
+NIS / ID Santri     : ${r.nis}
+Kamar / Perguruan   : ${r.kamar}
+Alamat Orang Tua/Wali: ${r.alamatOrtu}
+
+Berdasarkan hasil pemeriksaan kesehatan di Poskestren pada:
+Hari, Tanggal       : ${r.tanggal}
+Keluhan / Diagnosis : ${r.diagnosis}
+
+Dengan ini menyatakan bahwa santri tersebut di atas dalam kondisi SAKIT dan MEMERLUKAN ISTIRAHAT DI RUMAH serta pemeriksaan medis lebih lanjut. 
+
+Diberikan izin pulang sementara terhitung mulai:
+Tanggal Keluar      : ${r.tglKeluar}
+Tanggal Kembali     : ${r.tglKembali}
+
+Catatan / Imbauan Medis:
+1. Santri diimbau untuk memeriksakan kembali kondisinya ke Fasilitas Kesehatan (Klinik/Puskesmas/Rumah Sakit/Dokter) terdekat selama di rumah.
+2. Membawa kembali Surat Keterangan Berobat dari Dokter/Faskes saat kembali ke pesantren sebagai bukti pemeriksaan ulang.
+3. Apabila hingga batas waktu tanggal kembali kondisi santri belum membaik, Orang Tua/Wali wajib mengonfirmasi dan memperpanjang izin ke Pengurus Pesantren.
+
+Demikian surat keterangan izin ini dibuat agar dapat dipergunakan sebagaimana mestinya. Atas perhatian dan kerja samanya, kami ucapkan terima kasih.
+
+
+[Kota Pesantren], ${r.tanggal}
+
+    Petugas Kesehatan Poskestren,                        
+                                            
+
+
+
+
+  ( ${r.petugas} )                                   
+`;
+
+      document.getElementById('print-area').innerText = formatSurat;
+      window.print();
+    }
+
+    // Export Data Rekam Medis ke Excel
+    function exportData() {
+      const ws = XLSX.utils.json_to_sheet(rekamMedis);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Rekam Medis");
+      XLSX.writeFile(wb, "Data_Rekam_Medis_Poskestren.xlsx");
+    }
+  </script>
 </body>
 </html>
