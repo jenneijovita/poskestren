@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - POSKESTREN</title>
+  <!-- Menghubungkan file CSS eksternal -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="login-card">
+    <div class="login-header">
+      <div class="login-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <h2>Login POSKESTREN</h2>
+      <p>Silakan masuk untuk mengakses dashboard</p>
+    </div>
+
+    <form id="loginForm" onsubmit="processLogin(event)">
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Masukkan username" required autocomplete="off">
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Masukkan password" required>
+      </div>
+
+      <div id="errorMessage" class="error-message">
+        Username atau password salah!
+      </div>
+
+      <button type="submit" class="btn-login">Masuk</button>
+    </form>
+  </div>
+
+  <script>
+    function processLogin(event) {
+      event.preventDefault();
+      
+      const user = document.getElementById("username").value.trim().toLowerCase();
+      const pass = document.getElementById("password").value.trim();
+      const err = document.getElementById("errorMessage");
+
+      // Validasi Username dan Password sesuai permintaan
+      const isValid1 = (user === "poskestren" && pass === "poskestren");
+      const isValid2 = (user === "pondok putri" && pass === "pondok putri");
+
+      if (isValid1 || isValid2) {
+        // Simpan sesi bahwa user sudah login
+        sessionStorage.setItem("isLoggedIn", "true");
+        sessionStorage.setItem("currentUser", user);
+
+        // Alihkan (Redirect) ke halaman dashboard utama Anda
+        window.location.href = "index.html"; 
+      } else {
+        err.style.display = "block";
+      }
+    }
+  </script>
+
+</body>
+</html>
