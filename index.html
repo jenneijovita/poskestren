@@ -12,6 +12,9 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     
+    <!-- Penghubung ke File CSS Eksternal -->
+    <link rel="stylesheet" href="style.css">
+    
     <script>
         tailwind.config = {
             theme: {
@@ -43,41 +46,6 @@
             }
         }
     </script>
-    <style>
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #04150E;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #115E59;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #0D9488;
-        }
-        .glass-card {
-            background: rgba(8, 34, 24, 0.75);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .glass-nav {
-            background: rgba(4, 21, 14, 0.85);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .text-gold-gradient {
-            background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #D97706 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .text-emerald-gradient {
-            background: linear-gradient(135deg, #34D399 0%, #059669 50%, #0D9488 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-    </style>
 </head>
 <body class="bg-santri-dark text-slate-200 font-sans antialiased relative overflow-x-hidden selection:bg-emerald-500 selection:text-white">
 
@@ -156,18 +124,18 @@
                     </a>
                 </div>
 
-                <!-- Animated Stats Counter -->
+                <!-- Stats Counter (Diperbaiki langsung muncul tanpa nilai 0) -->
                 <div class="pt-8 border-t border-white/10 grid grid-cols-3 gap-4 text-center lg:text-left">
                     <div>
-                        <h4 class="text-2xl sm:text-4xl font-extrabold text-white"><span class="counter" data-target="1200">0</span>+</h4>
+                        <h4 class="text-2xl sm:text-4xl font-extrabold text-white">1200+</h4>
                         <p class="text-slate-400 text-xs sm:text-sm">Santri Terlayani</p>
                     </div>
                     <div>
-                        <h4 class="text-2xl sm:text-4xl font-extrabold text-white"><span class="counter" data-target="24">0</span> <span class="text-emerald-400 text-sm">Jam</span></h4>
+                        <h4 class="text-2xl sm:text-4xl font-extrabold text-white">24 <span class="text-emerald-400 text-sm">Jam</span></h4>
                         <p class="text-slate-400 text-xs sm:text-sm">Piket SantriHusada</p>
                     </div>
                     <div>
-                        <h4 class="text-2xl sm:text-4xl font-extrabold text-white"><span class="counter" data-target="100">0</span>%</h4>
+                        <h4 class="text-2xl sm:text-4xl font-extrabold text-white">100%</h4>
                         <p class="text-slate-400 text-xs sm:text-sm">Obat Standar Medis</p>
                     </div>
                 </div>
@@ -422,7 +390,7 @@
         </div>
     </section>
 
-    <!-- MODAL POPUP 1: SCABIES -->
+    <!-- MODAL POPUP 1 -->
     <div id="modal-scabies" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
         <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal('modal-scabies')"></div>
         <div class="relative glass-card border border-emerald-500/40 rounded-2xl max-w-2xl w-full mx-auto shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col">
@@ -454,7 +422,7 @@
                     <li><strong class="text-white">Jaga Kebersihan Kamar:</strong> Buka jendela dan pintu kamar setiap pagi agar udara segar dan sinar matahari masuk.</li>
                 </ol>
                 <div class="bg-emerald-950/60 border-l-4 border-emerald-500 p-4 rounded-r-lg mt-6">
-                    <p class="text-xs sm:text-sm text-emerald-300 font-medium">💡 <strong>Saran Pengobatan:</strong> Jika sudah timbul rasa gatal hebat terutama pada malam hari di sela-sela jari atau pergelangan tangan, segera periksakan ke Poskestren (Pos Kesehatan Pesantren) untuk mendapatkan salep antiskabies.</p>
+                    <p class="text-xs sm:text-sm text-emerald-300 font-medium">💡 <strong>Saran Pengobatan:</strong> Jika sudah timbul rasa gatal hebat terutama pada malam hari di sela-sela jari atau pergelangan tangan, segera periksakan ke Poskestren untuk mendapatkan salep antiskabies.</p>
                 </div>
             </div>
             <div class="p-4 bg-santri-dark border-t border-white/10 flex justify-end">
@@ -463,7 +431,7 @@
         </div>
     </div>
 
-    <!-- MODAL POPUP 2: HAFALAN -->
+    <!-- MODAL POPUP 2 -->
     <div id="modal-hafalan" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
         <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal('modal-hafalan')"></div>
         <div class="relative glass-card border border-amber-500/40 rounded-2xl max-w-2xl w-full mx-auto shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col">
@@ -497,7 +465,7 @@
         </div>
     </div>
 
-    <!-- MODAL POPUP 3: DEMAM & FLU -->
+    <!-- MODAL POPUP 3 -->
     <div id="modal-flu" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
         <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal('modal-flu')"></div>
         <div class="relative glass-card border border-teal-500/40 rounded-2xl max-w-2xl w-full mx-auto shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col">
@@ -536,7 +504,7 @@
         <p>&copy; 2026 Poskestren Pondok Pesantren Raudlatul Musthofa. All rights reserved.</p>
     </footer>
 
-    <!-- Script Javascript untuk Animasi Angka & Fitur Lainnya -->
+    <!-- Script Javascript -->
     <script>
         // Toggle Mobile Menu
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -591,24 +559,6 @@
 
             window.open(`https://wa.me/${nomorWa}?text=${pesan}`, '_blank');
         }
-
-        // Animasi Counter Angka Statistik
-        const counters = document.querySelectorAll('.counter');
-        counters.forEach(counter => {
-            const updateCount = () => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                const increment = target / 50; // Kecepatan hitung
-
-                if (count < target) {
-                    counter.innerText = Math.ceil(count + increment);
-                    setTimeout(updateCount, 30);
-                } else {
-                    counter.innerText = target;
-                }
-            };
-            updateCount();
-        });
     </script>
 </body>
 </html>
