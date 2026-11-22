@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Poskestren - Divisi Kesehatan Pondok Pesantren Raudlatul Musthofa</title>
-
+    
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
-
+    
     <script>
         tailwind.config = {
             theme: {
@@ -45,6 +43,41 @@
             }
         }
     </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #04150E;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #115E59;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0D9488;
+        }
+        .glass-card {
+            background: rgba(8, 34, 24, 0.75);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-nav {
+            background: rgba(4, 21, 14, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .text-gold-gradient {
+            background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #D97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-emerald-gradient {
+            background: linear-gradient(135deg, #34D399 0%, #059669 50%, #0D9488 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
 </head>
 <body class="bg-santri-dark text-slate-200 font-sans antialiased relative overflow-x-hidden selection:bg-emerald-500 selection:text-white">
 
@@ -81,7 +114,7 @@
             </nav>
 
             <!-- Mobile Menu Toggle Button -->
-            <button id="mobile-menu-btn" type="button" class="lg:hidden text-slate-300 hover:text-white text-2xl focus:outline-none">
+            <button id="mobile-menu-btn" class="lg:hidden text-slate-300 hover:text-white text-2xl focus:outline-none">
                 <i class="fa-solid fa-bars" id="menu-icon"></i>
             </button>
         </div>
@@ -99,7 +132,7 @@
     <!-- Hero Section (Profil) -->
     <section id="profil" class="min-h-screen pt-32 pb-20 flex items-center justify-center relative px-6">
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-
+            
             <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-emerald-500/30 text-emerald-300 text-xs sm:text-sm font-medium animate-bounce">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
@@ -122,7 +155,7 @@
                     <a href="#consultation" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 text-white font-bold shadow-xl shadow-emerald-900/40 hover:-translate-y-1 transition-all text-center flex items-center justify-center gap-2">
                         <i class="fa-solid fa-hospital-user"></i> Form Periksa Santri
                     </a>
-                    <a href="https://wa.me/6285784960886?text=Halo%20Poskestren,%20saya%20ingin%20melakukan%20panggilan%20darurat%20kesehatan%20santri." target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-card text-emerald-400 font-semibold hover:bg-emerald-500/10 border border-emerald-500/30 hover:border-emerald-400 transition-all text-center flex items-center justify-center gap-2">
+                    <a href="https://wa.me/6285784960886?text=Halo%20Poskestren,%20saya%20ingin%20melakukan%20panggilan%20darurat%20kesehatan%20santri." target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-card text-emerald-400 font-semibold hover:bg-emerald-500/10 border border-emerald-500/30 hover:border-emerald-400 transition-all text-center flex items-center justify-center gap-2">
                         <i class="fa-brands fa-whatsapp text-xl text-emerald-400"></i> Emergency Call (24 Jam)
                     </a>
                 </div>
@@ -151,7 +184,7 @@
                     <div class="relative w-full h-full rounded-3xl glass-card p-4 border border-emerald-500/30 overflow-hidden flex items-center justify-center">
                         <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80" alt="Santri Memeriksakan Diri di Poskestren" class="w-full h-full object-cover rounded-2xl filter brightness-90 hover:scale-105 transition-all duration-500">
                     </div>
-
+                    
                     <!-- Floating Card Badge -->
                     <div class="absolute -bottom-6 -left-6 glass-card p-4 rounded-2xl border border-emerald-500/40 flex items-center gap-3 shadow-2xl">
                         <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl">
@@ -168,33 +201,8 @@
         </div>
     </section>
 
-    <!-- Profil: Sejarah Singkat Poskestren (Baca Selengkapnya) -->
-    <section id="sejarah-poskestren" class="py-12 px-6 relative z-10">
-        <div class="max-w-7xl mx-auto poskestren-blur-panel rounded-3xl p-8 sm:p-10 shadow-2xl">
-            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-                <div class="space-y-3 max-w-3xl">
-                    <span class="inline-block text-emerald-400 text-xs sm:text-sm font-extrabold uppercase tracking-widest">
-                        Profil & Sejarah Singkat Poskestren
-                    </span>
-                    <h2 class="text-2xl sm:text-3xl font-bold text-white">
-                        Sejarah Singkat Poskestren PP. Raudlatul Musthofa
-                    </h2>
-                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-                        Pos Kesehatan Pesantren (Poskestren) Pondok Pesantren Raudlatul Musthofa hadir untuk mendukung kesehatan santri, kebersihan lingkungan asrama, serta penerapan Pola Hidup Bersih dan Sehat (PHBS) dalam keseharian pesantren.
-                    </p>
-                </div>
-                <div class="flex-shrink-0">
-                    <button type="button" onclick="openModal('modal-sejarah')" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-semibold shadow-lg hover:scale-105 transition-all inline-flex items-center gap-2 cursor-pointer">
-                        <i class="fa-solid fa-book-open-reader"></i>
-                        <span>Baca Selengkapnya</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section (Layanan Poskestren) -->
-    <section id="services" class="py-24 px-6 relative z-10">
+    <!-- Services Section -->
+    <section id="services" class="py-24 px-6 relative">
         <div class="max-w-7xl mx-auto">
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <h2 class="text-emerald-400 text-sm font-extrabold uppercase tracking-widest mb-2">Layanan Kami</h2>
@@ -203,7 +211,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Service 1 -->
-                <div class="poskestren-blur-panel p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 hover:border-emerald-500/50 group cursor-pointer">
+                <div class="glass-card p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 border border-white/5 hover:border-emerald-500/50 group cursor-pointer">
                     <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 group-hover:bg-emerald-500 group-hover:text-white flex items-center justify-center text-2xl transition-all mb-6 shadow-md">
                         <i class="fa-solid fa-stethoscope"></i>
                     </div>
@@ -212,7 +220,7 @@
                 </div>
 
                 <!-- Service 2 -->
-                <div class="poskestren-blur-panel p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 hover:border-emerald-500/50 group cursor-pointer">
+                <div class="glass-card p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 border border-white/5 hover:border-emerald-500/50 group cursor-pointer">
                     <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 group-hover:bg-emerald-500 group-hover:text-white flex items-center justify-center text-2xl transition-all mb-6 shadow-md">
                         <i class="fa-solid fa-bed-pulse"></i>
                     </div>
@@ -221,7 +229,7 @@
                 </div>
 
                 <!-- Service 3 -->
-                <div class="poskestren-blur-panel p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 hover:border-emerald-500/50 group cursor-pointer">
+                <div class="glass-card p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 border border-white/5 hover:border-emerald-500/50 group cursor-pointer">
                     <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 group-hover:bg-emerald-500 group-hover:text-white flex items-center justify-center text-2xl transition-all mb-6 shadow-md">
                         <i class="fa-solid fa-soap"></i>
                     </div>
@@ -230,7 +238,7 @@
                 </div>
 
                 <!-- Service 4 -->
-                <div class="poskestren-blur-panel p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 hover:border-emerald-500/50 group cursor-pointer">
+                <div class="glass-card p-8 rounded-3xl hover:-translate-y-2 transition-all duration-300 border border-white/5 hover:border-emerald-500/50 group cursor-pointer">
                     <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 group-hover:bg-emerald-500 group-hover:text-white flex items-center justify-center text-2xl transition-all mb-6 shadow-md">
                         <i class="fa-solid fa-truck-medical"></i>
                     </div>
@@ -241,7 +249,7 @@
         </div>
     </section>
 
-    <!-- SECTION JADWAL TUGAS / PIKET -->
+    <!-- SECTION JADWAL TUGAS / PIKET (SESUAI GAMBAR) -->
     <section id="schedule" class="py-24 px-6 relative">
         <div class="max-w-7xl mx-auto">
             <div class="text-center max-w-3xl mx-auto mb-16 space-y-2">
@@ -342,8 +350,8 @@
                 <!-- KARTU 1: SCABIES -->
                 <div class="glass-card border border-white/10 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl hover:border-emerald-500/50 transition-all duration-300 flex flex-col group">
                     <div class="relative h-48 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80"
-                             alt="Cegah Scabies"
+                        <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80" 
+                             alt="Cegah Scabies" 
                              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 brightness-90">
                         <span class="absolute top-4 left-4 bg-emerald-600/90 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md">
                             Pencegahan
@@ -358,7 +366,7 @@
                                 Langkah-langkah menjaga kebersihan kasur, rutin menjemur pakaian, dan tidak saling pinjam pakaian antarsantri.
                             </p>
                         </div>
-                        <button type="button" onclick="openModal('modal-scabies')" class="inline-flex items-center text-emerald-400 hover:text-emerald-300 font-semibold text-sm tracking-wide transition-colors group/btn cursor-pointer">
+                        <button onclick="openModal('modal-scabies')" class="inline-flex items-center text-emerald-400 hover:text-emerald-300 font-semibold text-sm tracking-wide transition-colors group/btn cursor-pointer">
                             <span>BACA SELENGKAPNYA</span>
                             <svg class="w-4 h-4 ml-2 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
@@ -370,8 +378,8 @@
                 <!-- KARTU 2: HAFALAN & DAYA TAHAN TUBUH -->
                 <div class="glass-card border border-white/10 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl hover:border-emerald-500/50 transition-all duration-300 flex flex-col group">
                     <div class="relative h-48 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80"
-                             alt="Menjaga Daya Tahan Tubuh"
+                        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80" 
+                             alt="Menjaga Daya Tahan Tubuh" 
                              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 brightness-90">
                         <span class="absolute top-4 left-4 bg-amber-600/90 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md">
                             Pola Hidup
@@ -386,7 +394,7 @@
                                 Tips mengelola waktu tidur, asupan air minum cukup, dan nutrisi agar konsentrasi hafalan tetap optimal.
                             </p>
                         </div>
-                        <button type="button" onclick="openModal('modal-hafalan')" class="inline-flex items-center text-emerald-400 hover:text-emerald-300 font-semibold text-sm tracking-wide transition-colors group/btn cursor-pointer">
+                        <button onclick="openModal('modal-hafalan')" class="inline-flex items-center text-emerald-400 hover:text-emerald-300 font-semibold text-sm tracking-wide transition-colors group/btn cursor-pointer">
                             <span>BACA SELENGKAPNYA</span>
                             <svg class="w-4 h-4 ml-2 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
@@ -398,8 +406,8 @@
                 <!-- KARTU 3: DEMAM & FLU -->
                 <div class="glass-card border border-white/10 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl hover:border-emerald-500/50 transition-all duration-300 flex flex-col group">
                     <div class="relative h-48 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80"
-                             alt="Pertolongan Pertama Demam"
+                        <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80" 
+                             alt="Pertolongan Pertama Demam" 
                              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 brightness-90">
                         <span class="absolute top-4 left-4 bg-teal-600/90 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-md">
                             Pertolongan Pertama
@@ -414,7 +422,7 @@
                                 Apa yang harus dilakukan teman asrama saat ada santri yang menggigil atau demam tinggi di malam hari.
                             </p>
                         </div>
-                        <button type="button" onclick="openModal('modal-flu')" class="inline-flex items-center text-emerald-400 hover:text-emerald-300 font-semibold text-sm tracking-wide transition-colors group/btn cursor-pointer">
+                        <button onclick="openModal('modal-flu')" class="inline-flex items-center text-emerald-400 hover:text-emerald-300 font-semibold text-sm tracking-wide transition-colors group/btn cursor-pointer">
                             <span>BACA SELENGKAPNYA</span>
                             <svg class="w-4 h-4 ml-2 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
@@ -461,82 +469,174 @@
         </div>
     </section>
 
-    <!-- MODAL SEJARAH SINGKAT POSKESTREN -->
-    <div id="modal-sejarah" class="fixed inset-0 z-[60] hidden items-center justify-center p-4 sm:p-6 overflow-y-auto">
-        <div class="fixed inset-0 poskestren-modal-backdrop transition-opacity" onclick="closeModal('modal-sejarah')"></div>
-        <div class="poskestren-modal-box rounded-2xl max-w-2xl w-full mx-auto shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
-            <div class="p-6 sm:p-8 overflow-y-auto space-y-4 text-slate-200">
-                <div class="flex items-start justify-between gap-4 border-b border-white/10 pb-4">
-                    <div>
-                        <span class="text-xs font-bold uppercase tracking-widest text-emerald-400">Profil Poskestren</span>
-                        <h3 class="text-2xl font-bold text-white mt-1">Sejarah Singkat Poskestren PP. Raudlatul Musthofa</h3>
-                    </div>
-                    <button type="button" onclick="closeModal('modal-sejarah')" class="text-slate-300 hover:text-white text-xl px-2 py-1 cursor-pointer">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <p class="text-sm sm:text-base leading-relaxed text-slate-300">
-                    Pos Kesehatan Pesantren (Poskestren) Pondok Pesantren Raudlatul Musthofa hadir sebagai unit layanan kesehatan dasar yang membantu menjaga kesehatan fisik santri, kebersihan lingkungan asrama, serta pembiasaan Pola Hidup Bersih dan Sehat (PHBS).
-                </p>
-                <p class="text-sm sm:text-base leading-relaxed text-slate-300">
-                    Dengan dukungan perawat pembina, pengurus kesehatan santri (SantriHusada), serta koordinasi rujukan ke fasilitas kesehatan terdekat, Poskestren berupaya memberikan penanganan awal yang sigap dan terarah bagi santri maupun pengurus.
-                </p>
-            </div>
-            <div class="px-6 py-4 border-t border-white/10 flex justify-end bg-black/20">
-                <button type="button" onclick="closeModal('modal-sejarah')" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold transition-colors cursor-pointer">
-                    Tutup
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- MODAL POPUP 1: CEGAH SCABIES -->
-    <div id="modal-scabies" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6 overflow-y-auto">
+    <div id="modal-scabies" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
         <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal('modal-scabies')"></div>
         <div class="relative glass-card border border-emerald-500/40 rounded-2xl max-w-2xl w-full mx-auto shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col">
             <div class="relative h-56 sm:h-64 flex-shrink-0">
-                <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1000&q=80" alt="Cegah Scabies" class="w-full h-full object-cover">
+                <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-santri-dark via-santri-dark/40 to-transparent"></div>
-                <button type="button" onclick="closeModal('modal-scabies')" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-black/50 text-white hover:bg-black/75 flex items-center justify-center cursor-pointer">
-                    <i class="fa-solid fa-xmark"></i>
+                <button onclick="closeModal('modal-scabies')" class="absolute top-4 right-4 bg-black/60 hover:bg-black/90 text-white rounded-full p-2 backdrop-blur-md transition-colors focus:outline-none cursor-pointer">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
+                <div class="absolute bottom-4 left-6 right-6">
+                    <span class="inline-block bg-emerald-600 text-white text-xs font-semibold px-3 py-1 rounded-full mb-2">Pencegahan</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">Cegah Scabies (Gudik) di Asrama Santri</h2>
+                </div>
             </div>
-            <div class="p-6 sm:p-8 overflow-y-auto space-y-4 text-slate-200">
-                <h3 class="text-2xl font-bold text-white">Cegah Scabies (Gudik) di Asrama Santri</h3>
-                <p class="text-sm sm:text-base leading-relaxed text-slate-300">
-                    Jaga kebersihan sprei, sarung bantal, dan handuk pribadi, jemur perlengkapan tidur serta pakaian secara rutin di bawah sinar matahari, dan hindari bertukar pakaian atau alat tidur antarsantri.
-                </p>
+            <div class="p-6 overflow-y-auto space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+                <p>Scabies atau yang sering dikenal santri sebagai <strong class="text-emerald-400">Gudik</strong> adalah penyakit kulit menular yang disebabkan oleh tungau mikroskopis <em>Sarcoptes scabiei</em>. Penyakit ini sangat mudah menyebar di lingkungan padat seperti asrama atau kobong pesantren.</p>
+                <h4 class="text-lg font-semibold text-emerald-400 mt-4 mb-2">Penyebab Utama di Asrama:</h4>
+                <ul class="list-disc pl-5 space-y-1 text-slate-300">
+                    <li>Kebiasaan saling meminjam pakaian, sarung, atau handuk.</li>
+                    <li>Kasur dan bantal yang jarang dijemur di bawah sinar matahari.</li>
+                    <li>Sirkulasi udara dan pencahayaan kamar kobong yang kurang memadai.</li>
+                    <li>Pakaian basah/lembap yang ditumpuk terlalu lama.</li>
+                </ul>
+                <h4 class="text-lg font-semibold text-emerald-400 mt-4 mb-2">Langkah Pencegahan Efektif:</h4>
+                <ol class="list-decimal pl-5 space-y-2 text-slate-300">
+                    <li><strong class="text-white">Jangan Saling Pinjam Pakaian:</strong> Gunakan peralatan mandi, handuk, sarung, dan baju milik sendiri.</li>
+                    <li><strong class="text-white">Rutin Jemur Kasur:</strong> Jemur kasur busa/kapuk dan bantal minimal 1 kali seminggu di bawah terik matahari langsung.</li>
+                    <li><strong class="text-white">Cuci Seprai dengan Air Panas:</strong> Jika memungkinkan, rendam seprai dan selimut dengan air panas berkala untuk membunuh tungau.</li>
+                    <li><strong class="text-white">Jaga Kebersihan Kamar:</strong> Buka jendela dan pintu kamar setiap pagi agar udara segar dan sinar matahari masuk.</li>
+                </ol>
+                <div class="bg-emerald-950/60 border-l-4 border-emerald-500 p-4 rounded-r-lg mt-6">
+                    <p class="text-xs sm:text-sm text-emerald-300 font-medium">💡 <strong>Saran Pengobatan:</strong> Jika sudah timbul rasa gatal hebat terutama pada malam hari di sela-sela jari atau pergelangan tangan, segera periksakan ke Poskestren (Pos Kesehatan Pesantren) untuk mendapatkan salep antiskabies.</p>
+                </div>
             </div>
-            <div class="px-6 py-4 border-t border-white/10 flex justify-end">
-                <button type="button" onclick="closeModal('modal-scabies')" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold transition-colors cursor-pointer">
-                    Tutup
-                </button>
+            <div class="p-4 bg-santri-dark border-t border-white/10 flex justify-end">
+                <button onclick="closeModal('modal-scabies')" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-medium rounded-xl text-sm transition-colors cursor-pointer">Tutup Artikel</button>
             </div>
         </div>
     </div>
 
+    <!-- MODAL POPUP 2: HAFALAN -->
+    <div id="modal-hafalan" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+        <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal('modal-hafalan')"></div>
+        <div class="relative glass-card border border-amber-500/40 rounded-2xl max-w-2xl w-full mx-auto shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col">
+            <div class="relative h-56 sm:h-64 flex-shrink-0">
+                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-santri-dark via-santri-dark/40 to-transparent"></div>
+                <button onclick="closeModal('modal-hafalan')" class="absolute top-4 right-4 bg-black/60 hover:bg-black/90 text-white rounded-full p-2 backdrop-blur-md transition-colors focus:outline-none cursor-pointer">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="absolute bottom-4 left-6 right-6">
+                    <span class="inline-block bg-amber-600 text-white text-xs font-semibold px-3 py-1 rounded-full mb-2">Pola Hidup</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">Menjaga Daya Tahan Tubuh Saat Setoran Hafalan</h2>
+                </div>
+            </div>
+            <div class="p-6 overflow-y-auto space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+                <p>Aktivitas menghafal Al-Qur'an maupun kitab membutuhkan fokus tinggi dan stamina mental yang prima. Kurang tidur dan nutrisi yang buruk dapat menurunkan daya ingat serta daya tahan tubuh santri.</p>
+                <h4 class="text-lg font-semibold text-amber-400 mt-4 mb-2">Tips Stamina & Daya Ingat Optimal:</h4>
+                <ul class="list-disc pl-5 space-y-2 text-slate-300">
+                    <li><strong class="text-white">Manfaatkan Qailulah (Tidur Siang Sejenak):</strong> Tidur singkat selama 15–30 menit sebelum atau sesudah dzuhur sangat ampuh menyegarkan kembali otak yang lelah.</li>
+                    <li><strong class="text-white">Cukupi Kebutuhan Air Putih:</strong> Dehidrasi ringan bisa menyebabkan pusing dan konsentrasi menurun. Minum minimal 8 gelas air sehari.</li>
+                    <li><strong class="text-white">Konsumsi Makanan Penguat Daya Ingat:</strong> Perbanyak konsumsi kurma, madu, kismis, dan buah-buahan yang kaya antioksidan.</li>
+                    <li><strong class="text-white">Atur Waktu Muroja'ah:</strong> Hindari begadang berlebihan hingga larut malam. Tidur yang cukup setelah Isya jauh lebih efektif untuk mengendapkan hafalan.</li>
+                </ul>
+                <div class="bg-amber-950/60 border-l-4 border-amber-500 p-4 rounded-r-lg mt-6">
+                    <p class="text-xs sm:text-sm text-amber-300 font-medium">📌 <strong>Catatan Santri:</strong> Otak yang lelah tidak akan maksimal menyerap hafalan baru. Kombinasikan ikhtiar fisik dengan pola istirahat yang seimbang.</p>
+                </div>
+            </div>
+            <div class="p-4 bg-santri-dark border-t border-white/10 flex justify-end">
+                <button onclick="closeModal('modal-hafalan')" class="px-5 py-2 bg-amber-600 hover:bg-amber-500 text-white font-medium rounded-xl text-sm transition-colors cursor-pointer">Tutup Artikel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL POPUP 3: DEMAM & FLU -->
+    <div id="modal-flu" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+        <div class="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal('modal-flu')"></div>
+        <div class="relative glass-card border border-teal-500/40 rounded-2xl max-w-2xl w-full mx-auto shadow-2xl overflow-hidden z-10 max-h-[90vh] flex flex-col">
+            <div class="relative h-56 sm:h-64 flex-shrink-0">
+                <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=1000&q=80" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-santri-dark via-santri-dark/40 to-transparent"></div>
+                <button onclick="closeModal('modal-flu')" class="absolute top-4 right-4 bg-black/60 hover:bg-black/90 text-white rounded-full p-2 backdrop-blur-md transition-colors focus:outline-none cursor-pointer">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="absolute bottom-4 left-6 right-6">
+                    <span class="inline-block bg-teal-600 text-white text-xs font-semibold px-3 py-1 rounded-full mb-2">Pertolongan Pertama</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white">Penanganan Dini Demam dan Flu pada Santri</h2>
+                </div>
+            </div>
+            <div class="p-6 overflow-y-auto space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+                <p>Demam dan flu seringkali menular dengan cepat di lingkungan asrama pesantren. Penanganan awal yang tepat sangat penting untuk mencegah komplikasi dan penularan ke santri lain.</p>
+                <h4 class="text-lg font-semibold text-teal-400 mt-4 mb-2">Pertolongan Pertama di Asrama:</h4>
+                <ol class="list-decimal pl-5 space-y-2 text-slate-300">
+                    <li><strong class="text-white">Kompres Air Hangat:</strong> Lakukan kompres pada bagian dahi atau ketiak menggunakan air hangat (bukan air dingin/es).</li>
+                    <li><strong class="text-white">Istirahat Cukup:</strong> Minta santri istirahat dari kegiatan fisik berat dan memperbanyak minum air hangat.</li>
+                    <li><strong class="text-white">Gunakan Masker:</strong> Santri yang batuk/pilek wajib memakai masker untuk mencegah penularan di kamar.</li>
+                    <li><strong class="text-white">Konsumsi Parasetamol:</strong> Jika demam tinggi, berikan obat pereda demam sesuai dosis dasar.</li>
+                </ol>
+                <div class="bg-teal-950/60 border-l-4 border-teal-500 p-4 rounded-r-lg mt-6">
+                    <p class="text-xs sm:text-sm text-teal-300 font-medium">🚨 <strong>Kapan Harus Berobat Ke Poskestren?</strong> Jika demam berlangsung lebih dari 2 hari, disertai sesak napas, atau muntah terus menerus, segera hubungi atau bawa ke Poskestren.</p>
+                </div>
+            </div>
+            <div class="p-4 bg-santri-dark border-t border-white/10 flex justify-end">
+                <button onclick="closeModal('modal-flu')" class="px-5 py-2 bg-teal-600 hover:bg-teal-500 text-white font-medium rounded-xl text-sm transition-colors cursor-pointer">Tutup Artikel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-santri-dark border-t border-white/5 text-center text-slate-400 text-sm">
+        <p>&copy; 2026 Poskestren Pondok Pesantren Raudlatul Musthofa. All rights reserved.</p>
+    </footer>
+
+    <!-- Script Javascript -->
     <script>
+        // Toggle Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if(mobileMenu.classList.contains('hidden')) {
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            } else {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+            }
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
+
+        // Fungsi Buka & Tutup Modal Artikel
         function openModal(id) {
             const modal = document.getElementById(id);
-            if (!modal) return;
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            if(modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
         }
 
         function closeModal(id) {
             const modal = document.getElementById(id);
-            if (!modal) return;
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
+            if(modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
         }
 
-        function kirimWhatsApp(event) {
-            event.preventDefault();
-            const nama = document.getElementById('nama').value.trim();
-            const kamar = document.getElementById('kamar').value.trim();
-            const keluhan = document.getElementById('keluhan').value.trim();
-            const pesan = `Halo Poskestren, saya ingin mendaftar periksa:%0A- Nama: ${encodeURIComponent(nama)}%0A- Asrama/Kamar: ${encodeURIComponent(kamar)}%0A- Keluhan: ${encodeURIComponent(keluhan)}`;
-            window.open(`https://wa.me/6285784960886?text=${pesan}`, '_blank', 'noopener,noreferrer');
+        // Fungsi Kirim ke WhatsApp (085784960886)
+        function kirimWhatsApp(e) {
+            e.preventDefault();
+            const nama = document.getElementById('nama').value;
+            const kamar = document.getElementById('kamar').value;
+            const keluhan = document.getElementById('keluhan').value;
+
+            const nomorWa = "6285784960886";
+            const pesan = `Halo Poskestren PP. Raudlatul Musthofa,%0A%0ASaya ingin mendaftarkan santri untuk pemeriksaan/berobat:%0A- *Nama Lengkap*: ${nama}%0A- *Kamar/Asrama*: ${kamar}%0A- *Keluhan*: ${keluhan}%0A%0AMohon bantuan penanganannya, terima kasih.`;
+
+            window.open(`https://wa.me/${nomorWa}?text=${pesan}`, '_blank');
         }
     </script>
 </body>
